@@ -81,6 +81,7 @@ In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses
 
 ```params.probe_radius```: The curved transducer array radius (m). This parameter is not used when ```params.probe_type = 'Linear'```.
 
+```params.dtheta```: The angle increment (rad) between beams. This parameter is not used when ```params.probe_type = 'Linear'```.
 
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
