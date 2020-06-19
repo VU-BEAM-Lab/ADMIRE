@@ -77,7 +77,7 @@ In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses
 
 ```params.probe_type```: The type of transducer array that is used. The two options are either ```params.probe_type = 'Linear'``` or ```params.probe_type = 'Curvilinear'```.
 
-```params.probe_name```: The name of the transducer array that is used (i.e., ```'L7_4'```, ```'C5_2'```, etc.). Note that this parameter can be set to any string, and the generation of the ADMIRE model matrices does not depend on it. It is only used for purposes of recordkeeping.
+```params.probe_name```: The name of the transducer array that is used (i.e., ```params.probe_name = 'L7_4'```, ```params.probe_name = 'C5_2'```, etc.). Note that this parameter can be set to any string, and the generation of the ADMIRE model matrices does not depend on it. It is only used for purposes of recordkeeping.
 
 ```params.probe_radius```: The curved transducer array radius (m). This parameter is not used when ```params.probe_type = 'Linear'```.
 
