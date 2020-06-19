@@ -4,8 +4,9 @@
 1. [Overview](#Overview)
 2. [CPU Implementation Setup](#CPU-Implementation-Setup)
 3. [GPU Implementation Setup](#GPU-Implementation-Setup)
-4. [License](#License)
-5. [Acknowledgements](#Acknowledgements)
+4. [ADMIRE Model Generation User-Defined Parameters](#ADMIRE-Model-Generation-User-Defined-Parameters)
+5. [License](#License)
+6. [Acknowledgements](#Acknowledgements)
 
 ## Overview
 ADMIRE (Aperture Domain Model Image REconstruction) is a model-based approach to ultrasound beamforming. The overview of the method is that ultrasound channel data is first collected and time-delayed. Following this, the short-time Fourier transform (STFT) is taken through the depth dimension for each channel, and the aperture domain data for several frequencies within each STFT window are fit using models. The frequencies that are typically fit correspond to the bandwidth of the ultrasound pulse. Each model consists of the modeled wavefronts, localized in time and frequency, that return to the aperture from different scattering locations. Linear regression with elastic-net regularization is utilized to perform the fits, and the objective function is shown below.
@@ -46,6 +47,8 @@ mexcuda ADMIRE_GPU_linear_probe_reshaped_data_type.cu -L/usr/local/cuda-10.0/lib
 mexcuda ADMIRE_GPU_linear_probe_Verasonics_RF_buffer_data_type.cu -L/usr/local/cuda-10.0/lib64 -lcufft
 ```
 Note that there might be differences in your path compared to the one shown above, such as in regards to the version of the CUDA toolkit that is being used. In addition, if desired, the ```-v``` flag can be included at the end of each mexcuda command to display compilation details. If the compilation process is successful, then it will display a success message for each compilation in the command prompt. In addition, a MEX-file should appear after each mexcuda call. The compilation process is important, and it is recommended to recompile any time a different release of MATLAB is utilized.
+
+## ADMIRE Model Generation User-Defined Parameters
 
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
