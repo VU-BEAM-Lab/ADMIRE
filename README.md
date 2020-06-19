@@ -55,13 +55,13 @@ In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses
 
 ```params.data_type```: This specifies the type of data that is being processed. Set this to ```'Reshaped'``` if the channel data is of the form (Depths + t0 - 1) x Elements per Beam x Beams x Frames. In this case, t0 is the sample number that corresponds to a depth of 0. If the first sample corresponds to a depth of 0, then t0 is 1. In addition, Frames corresponds to the fact that the matrix can be 4-D, where the fourth dimension indicates the frame of the channel data. ```Reshaped``` should be selected in cases such as when Field II data is being processed or if a Verasonics RF buffer that has already been reshaped is being processed. Now, the other option for this parameter is ```'Verasonics_RF_buffer'```, and this should be used when a raw Verasonics RF data buffer is being processed. The data in this buffer is of type int16. Moreover, it is of the form Buffer Rows x Total Elements On Transducer x Frames because on the Verasonics, all of the transducer elements are used to receive for the RF data buffer. 
 
-```params.t0```:
+```params.t0```: This parameter is the axial sample index that corresponds to a depth of 0. For example, when collecting data with a Verasonics system, the first few axial samples for each beam usually need to be cropped out, and ```t0``` is the parameter that is used to do this. The axial samples corresponding to indices less than t0 will be removed. Set ```params.t0 = 1``` when the t0 is already accounted for in the data. Essentially, if ```t0``` is accounted for, then the first axial sample in the data should correspond to a depth of 0.
 
 ```params.c```: Speed of sound (m/s).
 
-```params.num_buffer_rows```:
+```params.num_buffer_rows```: The number of rows per frame in the Verasonics RF buffer. This parameter is not used when ```params.data_type = 'Reshaped'```.
 
-```params.num_depths```:
+```params.num_depths```: The number of depth samples in the channel data after t0 is accounted for.
 
 ```params.num_elements```: The number of receive elements used to obtain one beam.
 
