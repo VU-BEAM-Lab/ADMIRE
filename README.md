@@ -93,6 +93,21 @@ In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses
 
 ```params.lambda_scaling_factor```: The scaling factor that is used in the calculation of lambda, which is used in elastic-net regularization. This is the same as ![c_lambda](https://latex.codecogs.com/svg.latex?c_%7B%5Clambda%7D).
 
+```params.max_iterations```: The maximum number of iterations of cyclic coordinate descent to perform.
+
+```params.tolerance```: The tolerance convergence criterion for cyclic coordinate descent.
+
+```params.ICA_ADMIRE_flag```: The flag that determines whether or not ICA is applied to the ADMIRE model matrices. Set to ```0``` to not apply ICA or set to ```1``` for to apply ICA (must set to 1 if ```params.processor_type = 'GPU'```).
+
+```params.channel_data_output_flag```: The flag that determines whether or not the ADMIRE processed channel data is outputted. Set to ```0``` to only have the envelope data outputted when the ADMIRE models are applied or set to ```1``` to have both the envelope data and channel data outputted when the ADMIRE models are applied.
+
+```params.aperture_growth_flag```: The flag that determines whether or not aperture growth is applied. Set to ```0``` to not apply aperture growth or set to ```1``` to apply aperture growth.
+
+```params.min_num_elements```: This parameter does not let aperture growth reduce the number of elements below the parameter's value. It is usually set to 16. This parameter is not used when ```params.aperture_growth_flag = 0 ```.
+
+```params.F_number```: The F number for applying aperture growth. This parameter is not used when ```params.aperture_growth_flag = 0 ```.
+
+```params.models_save_path```: The path to the directory in which the generated ADMIRE models are saved.
 ```
 
 ## License
