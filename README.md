@@ -109,6 +109,12 @@ In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses
 
 ```params.models_save_path```: The path to the directory in which the generated ADMIRE models are saved.
 
+```params.stft_window_overlap```: The fraction of samples that overlap between short-time Fourier transform (STFT) windows. You must set ```params.stft_window_overlap = 0``` in this code release.
+
+```params.gamma_im```: The gamma parameter that is used for intentional modulation. You must set ```params.gamma_im = 0``` in this code release.
+
+```params.stft_windowing_function```: The windowing function to use for the short-time Fourier transform (STFT). You must set ```params.stft_windowing_function = @rectwin``` in this code release.
+
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
 
