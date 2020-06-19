@@ -30,6 +30,13 @@ In order to utilize the GPU implementation of ADMIRE, a CUDA-capable NVIDIA GPU 
 
 Before compiling the code, you should first check to see that MATLAB recognizes your GPU card. To do so, go to the command prompt and type ```gpuDevice```. If successful, the properties of the GPU will be displayed. If an error is returned, then possible causes will most likely be related to the graphics driver or the toolkit version that is installed. Once the GPU is recognized, the next step is to compile the files that contain the C/CUDA code into MEX-files. Assuming the code repository is already on your system, go to the MATLAB directory that contains the repository folders and add them to your MATLAB path. For Windows OS, type the following commands into the MATLAB command prompt.
 
+```Matlab
+mexcuda ADMIRE_GPU_curvilinear_probe_reshaped_data_type.cu -lcufft
+mexcuda ADMIRE_GPU_curvilinear_probe_verasonics_RF_buffer_data_type.cu -lcufft
+mexcuda ADMIRE_GPU_linear_probe_reshaped_data_type.cu -lcufft
+mexcuda ADMIRE_GPU_linear_probe_Verasonics_RF_buffer_data_type.cu -lcufft
+```
+
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
 
