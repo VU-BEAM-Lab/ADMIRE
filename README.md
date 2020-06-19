@@ -36,6 +36,7 @@ mexcuda ADMIRE_GPU_curvilinear_probe_verasonics_RF_buffer_data_type.cu -lcufft
 mexcuda ADMIRE_GPU_linear_probe_reshaped_data_type.cu -lcufft
 mexcuda ADMIRE_GPU_linear_probe_Verasonics_RF_buffer_data_type.cu -lcufft
 ```
+The same commands can be used for Linux OS, but the path to the CUDA toolkit library must also be included. This is illustrated by the following commands. Note that mexcuda might find the CUDA toolkit library even if you do not explicitly type out its path.
 
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
