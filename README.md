@@ -81,7 +81,13 @@ In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses
 
 ```params.probe_radius```: The curved transducer array radius (m). This parameter is not used when ```params.probe_type = 'Linear'```.
 
-```params.dtheta```: The angle increment (rad) between beams. This parameter is not used when ```params.probe_type = 'Linear'```.
+```params.dtheta```: The angle increment between beams (rad). This parameter is not used when ```params.probe_type = 'Linear'```.
+
+```params.probe_pitch```: The pitch of the transducer array (m).
+
+```params.start_depth_ADMIRE```: The start depth for applying ADMIRE (m). If the start depth is less than the minimum depth for the scan, then the start depth is set to the minimum depth automatically.
+
+```params.end_depth_ADMIRE```: The end depth for applying ADMIRE (m). If the end depth is greater than the maximum depth for the scan, then the end depth is set to the maximum depth automatically.
 
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
