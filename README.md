@@ -73,7 +73,7 @@ In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses
 
 ```params.fs```: The sampling frequency (Hz).
 
-```params.BW```: The fractional bandwidth of the transmitted ultrasound pulse.
+```params.BW```: The fractional bandwidth of the transmitted ultrasound pulse. For example, a value for this might be ```params.BW = 0.6```.
 
 ```params.probe_type```: The type of transducer array that is used. The two options are either ```'Linear'``` or ```'Curvilinear'```.
 
