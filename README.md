@@ -6,8 +6,8 @@
 3. [GPU Implementation Setup](#GPU-Implementation-Setup)
 4. [ADMIRE Models Generation User-Defined Parameters](#ADMIRE-Models-Generation-User-Defined-Parameters)
 5. [ADMIRE Models Application User-Defined Parameters](#ADMIRE-Models-Application-User-Defined-Parameters)
-5. [License](#License)
-6. [Acknowledgements](#Acknowledgements)
+6. [License](#License)
+7. [Acknowledgements](#Acknowledgements)
 
 ## Overview
 ADMIRE (Aperture Domain Model Image REconstruction) is a model-based approach to ultrasound beamforming. The overview of the method is that ultrasound channel data is first collected and time-delayed. Following this, the short-time Fourier transform (STFT) is taken through the depth dimension for each channel, and the aperture domain data for several frequencies within each STFT window are fit using models. The frequencies that are typically fit correspond to the bandwidth of the ultrasound pulse. Each model consists of the modeled wavefronts, localized in time and frequency, that return to the aperture from different scattering locations. Linear regression with elastic-net regularization is utilized to perform the fits, and the objective function is shown below.
@@ -156,6 +156,8 @@ In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses
 ```params.outer_model_z_position_constants = [0]```.
 
 ```params.outer_model_distance_offset_constants```: The constants that describe the minimum and maximum distance offsets (m) that are used for the outer model predictors in the ```generate_models_for_stft_window.m``` function. The values that are already in the script ```params.outer_model_distance_offset_constants = [-8E-3, 3.2E-3]```.
+
+## ADMIRE Models Application User-Defined Parameters
 
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
