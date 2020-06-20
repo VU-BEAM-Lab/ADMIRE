@@ -143,7 +143,18 @@ In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses
 
 ```params.ROI_model_distance_offset_scaling_factor```: The scaling factor that is used to define the possible distance offsets for the ROI model predictors in the ```generate_models_for_stft_window.m``` function. The value that is already in the script is ```params.ROI_model_distance_offset_scaling_factor = [0.0485]```.
 
-```params.ROI_model_distance_offset_constants```: 
+```params.ROI_model_distance_offset_constants```: The constants that describe the minimum and maximum distance offsets (m) that are used for the ROI model predictors in the ```generate_models_for_stft_window.m``` function. The values that are already in the script are ```params.ROI_model_distance_offset_constants = [-0.8E-3, 0.4E-3]```.
+
+```params.outer_model_x_position_scaling_factors```: The scaling factors that are used to define the possible lateral positions for the outer model predictors in the ```generate_models_for_stft_window.m``` function. The values that are already in the script are ```params.outer_model_x_position_scaling_factors = [-1, 1.4228, 1]```.
+
+```params.outer_model_z_position_scaling_factors```: The scaling factors that are used to define the possible depth positions of the outer model predictors in the ```generate_models_for_stft_window.m``` function. The values that are already in the script are ```params.outer_model_z_position_scaling_factors = [1, -0.5, 0.7114, 1, 0.5, 0]```.
+
+```params.outer_model_distance_offset_scaling_factor```: The scaling factor that is used to define the possible distance offsets for the outer model predictors in the ```generate_models_for_stft_window.m``` function. The value that is already in the script is ```params.outer_model_distance_offset_scaling_factor = [0.1211]```.
+
+```params.outer_model_z_position_constants```: The constant that is used to define the possible depth positions of the outer model for the predictors in the ```generate_models_for_stft_window.m``` function. The value that is already in the script is 
+```params.outer_model_z_position_constants = [0]```.
+
+```params.outer_model_distance_offset_constants```: The constants that describe the minimum and maximum distance offsets (m) that are used for the outer model predictors in the ```generate_models_for_stft_window.m``` function. The values that are already in the script ```params.outer_model_distance_offset_constants = [-8E-3, 3.2E-3]```.
 
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
