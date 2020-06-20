@@ -4,7 +4,8 @@
 1. [Overview](#Overview)
 2. [CPU Implementation Setup](#CPU-Implementation-Setup)
 3. [GPU Implementation Setup](#GPU-Implementation-Setup)
-4. [ADMIRE Model Generation User-Defined Parameters](#ADMIRE-Model-Generation-User-Defined-Parameters)
+4. [ADMIRE Models Generation User-Defined Parameters](#ADMIRE-Models-Generation-User-Defined-Parameters)
+5. [ADMIRE Models Application User-Defined Parameters](#ADMIRE-Models-Application-User-Defined-Parameters)
 5. [License](#License)
 6. [Acknowledgements](#Acknowledgements)
 
@@ -48,7 +49,7 @@ mexcuda ADMIRE_GPU_linear_probe_Verasonics_RF_buffer_data_type.cu -L/usr/local/c
 ```
 Note that there might be differences in your path compared to the one shown above, such as in regards to the version of the CUDA toolkit that is being used. In addition, if desired, the ```-v``` flag can be included at the end of each mexcuda command to display compilation details. If the compilation process is successful, then it will display a success message for each compilation in the command prompt. In addition, a MEX-file should appear after each mexcuda call. The compilation process is important, and it is recommended to recompile any time a different release of MATLAB is utilized.
 
-## ADMIRE Model Generation User-Defined Parameters
+## ADMIRE Models Generation User-Defined Parameters
 In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses must be generated. These models are generated using the ```ADMIRE_models_generation_main.m``` script. The script requires several parameters to be specified, and they are described below.
 
 ### These are the parameters that will most likely be frequently changed each time the ADMIRE models are generated.
