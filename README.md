@@ -158,6 +158,19 @@ In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses
 ```params.outer_model_distance_offset_constants```: The constants that describe the minimum and maximum distance offsets (m) that are used for the outer model predictors in the ```generate_models_for_stft_window.m``` function. The values that are already in the script ```params.outer_model_distance_offset_constants = [-8E-3, 3.2E-3]```.
 
 ## ADMIRE Models Application User-Defined Parameters
+Once the ADMIRE models are generated, ultrasound channel data can be processed with ADMIRE using the ```ADMIRE_models_application_main.m``` script. This script is used for offline processing of data and not real-time processing. The parameters that are user-defined for this script are described below.
+
+```apply_params.models_load_path```: The path to the directory from which the generated ADMIRE models are loaded.
+
+```apply_params.data_load_path```: The path to the directory in which the channel data is located.
+
+```apply_params.filename```: The name of the file that contains the channel data.
+
+```apply_params.processed_data_save_path```: The path to the directory in which the data processed with ADMIRE is saved.
+
+```apply_params.processed_data_filename```: The name of the file to which the data processed with ADMIRE is saved.
+
+```apply_params.processor_type```: This specifies whether the channel data is processed using either the CPU implementation of ADMIRE or the GPU implementation. The two options are either ```apply_params.processor_type = 'CPU'``` or ```apply_params.processor_type = 'GPU'```.
 
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
