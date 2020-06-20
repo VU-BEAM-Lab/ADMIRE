@@ -57,7 +57,7 @@ In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses
 
 ```params.t0```: This parameter is the axial sample index that corresponds to a depth of 0. For example, when collecting data with a Verasonics system, the first few axial samples for each beam usually need to be cropped out, and ```t0``` is the parameter that is used to do this. The axial samples corresponding to indices less than t0 will be removed. Set ```params.t0 = 1``` when the t0 is already accounted for in the data. Essentially, if ```t0``` is accounted for, then the first axial sample in the data should correspond to a depth of 0.
 
-```params.c```: Speed of sound (m/s).
+```params.c```: The speed of sound (m/s).
 
 ```params.num_buffer_rows```: The number of rows per frame in the Verasonics RF buffer. This parameter is not used when ```params.data_type = 'Reshaped'```.
 
