@@ -115,7 +115,15 @@ In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses
 
 ```params.cal_shift```: The calibration offset (m) that is used for the ```tau_n0``` calculation in the ```generate_modeled_signal_for_predictor.m``` function. It is recommended to set ```params.cal_shift = 7.75E-6```.
 
-```params.distance_offset_shift```:
+```params.distance_offset_shift```: The calibration offset (m) that is used for the distance offset in the ```generate_modeled_signal_for_predictor.m``` function. It is recommended to set ```params.distance_offset_shift = 3.85E-5```.
+
+```params.win_tune```: The scaling factor that is multiplied by the ```half_pulse_length_distance``` variable in the ```generate_modeled_signal_for_predictor.m``` function. It is recommended to set ```params.win_tune = 1```.
+
+```params.ellipsoid_constant_1```: The constant that is used in the ROI model ellipsoidal acceptance region calculation in the ```generate_models_for_stft_window.m``` function. It is recommended to set ```params.ellipsoid_constant_1 = 0```.
+
+```params.ellipsoid_constant_2```: The constant that is used in the outer model ellipsoidal acceptance region calculation in the ```generate_models_for_stft_window.m``` function. It is recommended to set ```params.ellipsoid_constant_2 = 0.5E-3 + eps```.
+
+```params.lateral_limit_offset```: The calibration offset (m) that is used in calculating the possible lateral positions for the outer model predictors in the ```generate_models_for_stft_window.m``` function. It is recommended to set ```params.lateral_limit_offset = 1E-3```.
 
 ```params.stft_window_overlap```: The fraction of samples that overlap between short-time Fourier transform (STFT) windows. You must set ```params.stft_window_overlap = 0``` in this code release.
 
