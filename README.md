@@ -135,7 +135,15 @@ In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses
 
 ```params.stft_windowing_function```: The windowing function to use for the short-time Fourier transform (STFT). You must set ```params.stft_windowing_function = @rectwin``` in this code release.
 
-### These parameters are used to define the model space for ADMIRE in terms of the grids of possible scattering locations for the ROI and outer models. These values can be left unchanged, or they can modified in order to change the model space sampling.
+### These parameters are used to define the model space for ADMIRE in terms of the grids of possible scattering locations for the ROI and outer models. These values can be left unchanged, or they can be modified in order to change the model space sampling.
+
+```params.ROI_model_x_position_scaling_factors```: The scaling factors that are used to define the possible lateral positions of the ROI model predictors in the ```generate_models_for_stft_window_function.m``` function. The values that are already in the script are ```params.ROI_model_x_position_scaling_factors = [-0.5, 0.0179, 0.5] ```.
+
+```params.ROI_model_z_position_scaling_factors```: The scaling factors that are used to define the possible depth positions of the ROI model predictors in the ```generate_models_for_stft_window.m``` function. The values that are already in the script are ```params.ROI_model_z_position_scaling_factors = [-0.5, 0.1430, 0.5]```.
+
+```params.ROI_model_distance_offset_scaling_factor```: The scaling factor that is used to define the possible distance offsets for the ROI model predictors in the ```generate_models_for_stft_window.m``` function. The value that is already in the script is ```params.ROI_model_distance_offset_scaling_factor = [0.0485]```.
+
+```params.ROI_model_distance_offset_constants```: 
 
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
