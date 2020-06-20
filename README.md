@@ -109,6 +109,14 @@ In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses
 
 ```params.models_save_path```: The path to the directory in which the generated ADMIRE models are saved.
 
+```params.max_windows_per_set```: The number of windows to group together in one set for the short-time Fourier transform (STFT) calculation on the GPU. It is recommended to set ```params.max_windows_per_set = 17```. This parameter is not used if ```params.processor_type = 'CPU'```.
+
+```params.pulse_multiplier```: The scaling factor that is used in the ```params.stft_window_length``` parameter calculation. It is recommended to set ```params.pulse_multiplier = 1```.
+
+```params.cal_shift```: The calibration offset (m) that is used for the ```tau_n0``` calculation in the ```generate_modeled_signal_for_predictor.m``` function. It is recommended to set ```params.cal_shift = 7.75E-6```.
+
+```params.distance_offset_shift```:
+
 ```params.stft_window_overlap```: The fraction of samples that overlap between short-time Fourier transform (STFT) windows. You must set ```params.stft_window_overlap = 0``` in this code release.
 
 ```params.gamma_im```: The gamma parameter that is used for intentional modulation. You must set ```params.gamma_im = 0``` in this code release.
