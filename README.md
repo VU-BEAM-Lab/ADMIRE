@@ -135,6 +135,8 @@ In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses
 
 ```params.stft_windowing_function```: The windowing function to use for the short-time Fourier transform (STFT). You must set ```params.stft_windowing_function = @rectwin``` in this code release.
 
+### These parameters are used to define the model space for ADMIRE in terms of the grids of possible scattering locations for the ROI and outer models. These values can be left unchanged, or they can modified in order to change the model space sampling.
+
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
 
