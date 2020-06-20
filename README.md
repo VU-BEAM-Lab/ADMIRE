@@ -178,7 +178,7 @@ Once the ADMIRE models are generated, ultrasound channel data can be processed w
 
 ```apply_params.display_image_flag```: This flag specifies whether or not to display the log-compressed ultrasound images for each frame of channel data that is processed with ADMIRE. Set ```apply_params.display_image_flag = 0``` to not display the processed images or set ```appply_params.display_image_flag = 1``` to display the processed images.
 
-```apply_params.display_caxis_limits```: This vector specifies the caxis limits (dB) to use for displaying the processed ultrasound images with a specific dynamic range. This parameter is only used when ```apply_params.display_image_flag = 1```.
+```apply_params.display_caxis_limits```: This vector specifies the caxis limits (dB) to use for displaying the processed ultrasound images with a specific dynamic range. For example, to display the processed images with a dynamic range of 60 dB, set ```apply_params.display_caxis_limits = [-60 0]```. This parameter is only used when ```apply_params.display_image_flag = 1```.
 
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
