@@ -172,6 +172,8 @@ Once the ADMIRE models are generated, ultrasound channel data can be processed w
 
 ```apply_params.processor_type```: This specifies whether the channel data is processed using either the CPU implementation of ADMIRE or the GPU implementation. The two options are either ```apply_params.processor_type = 'CPU'``` or ```apply_params.processor_type = 'GPU'```.
 
+```apply_params.probe_type```: The type of transducer array that is used. The two options are either ```apply_params.probe_type = 'Linear'``` or ```apply_params.probe_type = 'Curvilinear'```.
+
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
 
