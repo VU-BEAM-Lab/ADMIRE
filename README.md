@@ -7,8 +7,9 @@
 4. [ADMIRE Models Generation User-Defined Parameters](#ADMIRE-Models-Generation-User-Defined-Parameters)
 5. [ADMIRE Models Application User-Defined Parameters](#ADMIRE-Models-Application-User-Defined-Parameters)
 6. [Input Data Format for Offline Processing](#Input-Data-Format-for-Offline-Processing)
-6. [License](#License)
-7. [Acknowledgements](#Acknowledgements)
+7. [Tutorial #1: Offline Processing of Data](#Tutorial-#1:-Offline-Processing-of-Data)
+8. [License](#License)
+9. [Acknowledgements](#Acknowledgements)
 
 ## Overview
 ADMIRE (Aperture Domain Model Image REconstruction) is a model-based approach to ultrasound beamforming. The overview of the method is that ultrasound channel data is first collected and time-delayed. Following this, the short-time Fourier transform (STFT) is taken through the depth dimension for each channel, and the aperture domain data for several frequencies within each STFT window are fit using models. The frequencies that are typically fit correspond to the bandwidth of the ultrasound pulse. Each model consists of the modeled wavefronts, localized in time and frequency, that return to the aperture from different scattering locations. Linear regression with elastic-net regularization is utilized to perform the fits, and the objective function is shown below.
