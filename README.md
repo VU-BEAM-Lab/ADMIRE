@@ -186,7 +186,7 @@ Once the ADMIRE models are generated, ultrasound channel data can be processed w
 In order to process ultrasound channel data using the ```ADMIRE_models_application_main.m``` script, the channel data must be saved to a file. The channel data should be the only variable that is saved to the file, but the variable name does not matter. In addition, if multiple frames are acquired and the channel data is 4-D, then the script will process each frame with ADMIRE due to the fact that it checks the size of the fourth dimension and loops through each frame. 
 
 ## Tutorial #1: Offline Processing of Data
-Suppose we have simulated 10 sets of channel data using Field II and that we have assembled the sets into a 4-D matrix called ```channel_data_matrix```. Each set of channel data consists of 2,000 depth samples, 128 elements, and 128 beams. Moreover, a linear probe with parameters similar to an L7-4 probe was used for the simulation, and we want to process this data using the GPU implementation of ADMIRE. Due to the fact that the data was simulated using Field II, the magnitude of the data is very small. Therefore, it is recommended to multiply this data by a scaling factor. This is only necessary when Field II simulated data is being processed on the GPU because single precision is used on the GPU. Essentially, multiplying by a scaling factor prevents the reduced precision from becoming a problem due to the small magnitude of the data. To re-emphasize, this does not need to be done when data such as Verasonics data is being processed with the GPU because the magnitude of this data is typically not very small like Field II simulated data. Moreover, this does not have to be done when using the CPU implementation of ADMIRE because double precision is used for these calculations. Now, in terms of the scaling factor, ```1E25``` is one example value that can be used. We can apply this to the data by doing the following below.
+Suppose we have simulated 10 sets of channel data using Field II and that we have assembled the sets into a 4-D matrix called ```channel_data_matrix```. Each set of channel data consists of 2,000 depth samples, 128 elements, and 128 beams. Moreover, a linear probe was used for the simulation, and we want to process this data using the GPU implementation of ADMIRE. Due to the fact that the data was simulated using Field II, the magnitude of the data is very small. Therefore, it is recommended to multiply this data by a scaling factor. This is only necessary when Field II simulated data is being processed on the GPU because single precision is used on the GPU. Essentially, multiplying by a scaling factor prevents the reduced precision from becoming a problem due to the small magnitude of the data. To re-emphasize, this does not need to be done when data such as Verasonics data is being processed with the GPU because the magnitude of this data is typically not very small like Field II simulated data. Moreover, this does not have to be done when using the CPU implementation of ADMIRE because double precision is used for these calculations. Now, in terms of the scaling factor, ```1E25``` is one example value that can be used. We can apply this to the data by doing the following below.
 
 ```Matlab
 channel_data_matrix = channel_data_matrix .* 1E25;
@@ -202,12 +202,16 @@ params.c = 1540; % This is set to 1540 because this was the speed of sound that 
 params.num_buffer_rows = 0; % This parameter does not matter due to the fact that params.data_type = 'Reshaped', so it is just set to a random number
 params.num_depths = 2000; % This is set to 2000 because this is the number of depth samples after params.t0 is accounted for (params.t0 is just 1 in this case)
 params.num_elements = 128; % This is set to 128 because this is how many elements there are per beam
-params.total_elements_on_probe = 256; % This is set to 256 because the probe that was simulated
+params.total_elements_on_probe = 256; % This is set to 256 because the probe that was simulated had 256 total elements
 params.num_beams = 128; % This is set to 128 because this is how many beams there are
 params.f0 = 5.2083E6; % This is set to 5.2083E6 because this was the transducer center frequency that was used in Field II
 params.fs = 20.8332E6; % This is set to 20.8332E6 because this was the sampling frequency that was used in Field II
 params.BW = 0.6; % This is set to 0.6 because that was the fractional bandwidth of the excitation pulse that was used in Field II
-
+params.probe_type = 'Linear'; % This is set to 'Linear' because a linear probe was simulated in Field II
+params.probe_name = 'Field II Linear Transducer Array`; % This parameter is just used for purposes of recordkeeping and can be set to any string
+params.probe_radius = 0; % This parameter is not used due to the fact that params.probe_type = 'Linear', so it is just set to a random number
+params.dtheta = 0; % This parameter is not used due to the fact that params.probe_type = 'Linear', so it is just set to a random number
+params.probe_pitch = 
 ```
 
 ## License
