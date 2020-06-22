@@ -6,7 +6,7 @@
 3. [GPU Implementation Setup](#GPU-Implementation-Setup)
 4. [ADMIRE Models Generation User-Defined Parameters](#ADMIRE-Models-Generation-User-Defined-Parameters)
 5. [ADMIRE Models Application User-Defined Parameters](#ADMIRE-Models-Application-User-Defined-Parameters)
-6. [Input Data Format for Offline Processing](#Input-Data-Format-for-Offline-Processing)
+6. [Input Data Format for Offline Processing of Data](#Input-Data-Format-for-Offline-Processing)
 7. [Tutorial #1: Offline Processing of Data](#Tutorial-1-Offline-Processing-of-Data)
 8. [License](#License)
 9. [Acknowledgements](#Acknowledgements)
