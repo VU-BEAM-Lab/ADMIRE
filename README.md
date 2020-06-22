@@ -248,7 +248,7 @@ Once the parameters are defined, we will run the script within MATLAB. This scri
 ```Matlab
 frame_number = 1;
 figure;
-imagesc(lateral_positions_cm, axial_positions_cm, envelope_matrix(:, :, :, frame_number);
+imagesc(lateral_positions_cm, axial_positions_cm, envelope_matrix(:, :, :, frame_number));
 colormap gray;
 caxis([-60 0]);
 axis image;
