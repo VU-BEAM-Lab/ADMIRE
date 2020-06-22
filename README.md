@@ -223,8 +223,10 @@ params.channel_data_output_flag = 1; % This is set to 1 because we want the ADMI
 params.aperture_growth_flag = 1; % This is set to 1 because we want to apply aperture growth
 params.min_num_elements = 16; % This is set to 16 because we do not want aperture growth to reduce the number of elements to less than 16
 params.F_number = 2; % This is set to 2 because we want to use an F number of 2 for aperture growth
-
+params.models_save_path = 'enter path here'; % This should be set to the path to the directory in which we want the generated ADMIRE models to be saved
 ```
+
+Note that for the rest of the parameters, we will use the values that are already in the script. Once the parameters are defined, we will run the script within MATLAB. The progress of the script will be displayed in the MATLAB command prompt. This script will generate a model for each frequency that is to be fit in each short-time Fourier transform (STFT) window. The models only need to be generated once and not per beam because all of the beams use the same aperture domain models. In addition, due to the fact that we selected the GPU implementation of ADMIRE, the models will also be organized in the format that the GPU implementation expects.
 
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
