@@ -202,10 +202,12 @@ params.c = 1540; % This is set to 1540 because this was the speed of sound that 
 params.num_buffer_rows = 0; % This parameter does not matter due to the fact that params.data_type = 'Reshaped', so it is just set to a random number
 params.num_depths = 2000; % This is set to 2000 because this is the number of depth samples after params.t0 is accounted for (params.t0 is just 1 in this case)
 params.num_elements = 128; % This is set to 128 because this is how many elements there are per beam
+params.total_elements_on_probe = 256; % This is set to 256 because the probe that was simulated
 params.num_beams = 128; % This is set to 128 because this is how many beams there are
 params.f0 = 5.2083E6; % This is set to 5.2083E6 because this was the transducer center frequency that was used in Field II
 params.fs = 20.8332E6; % This is set to 20.8332E6 because this was the sampling frequency that was used in Field II
-params.BW = 0.6;
+params.BW = 0.6; % This is set to 0.6 because that was the fractional bandwidth of the excitation pulse that was used in Field II
+
 ```
 
 ## License
