@@ -209,7 +209,7 @@ params.fs = 20.8332E6; % This is set to 20.8332E6 because this was the sampling 
 params.BW = 0.6; % This is set to 0.6 because that was the fractional bandwidth of the excitation pulse that was used in Field II
 params.probe_type = 'Linear'; % This is set to 'Linear' because a linear probe was simulated in Field II
 params.probe_name = 'Field II Linear Transducer Array`; % This parameter is just used for purposes of recordkeeping and can be set to any string
-params.probe_radius = 0; % This parameter is not used due to the fact that params.probe_type = Linear', so it is just set to a random number
+params.probe_radius = 0; % This parameter is not used due to the fact that params.probe_type = 'Linear', so it is just set to a random number
 params.dtheta = 0; % This parameter is not used due to the fact that params.probe_type = 'Linear', so it is just set to a random number
 params.probe_pitch = 
 ```
