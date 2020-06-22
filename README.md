@@ -215,7 +215,15 @@ params.probe_pitch = 1.953E-4; % This is set to 1.953E-4 because this was the pi
 params.start_depth_ADMIRE = 0; % This is set to 0 because we want ADMIRE to start being applied at a depth of 0.
 params.end_depth_ADMIRE = 10; % This is set to 10 because we want to apply ADMIRE through the full depth range of the data (note that the channel data does not go to a depth of 10 m, but we are just taking advantage of the fact that the code will automatically change this to the maximum depth of the data if the value entered exceeds it)
 params.alpha = 0.9; % This is set to 0.9 because we want this alpha value for elastic-net regularization
-params.lambda_scaling_factor  = 0.0189; % This is set to 0.0189 because this is the ![c_lambda](https://latex.codecogs.com/svg.latex?c_%7B%5Clambda%7D) value that we want to use for the calculation of ![lambda](https://latex.codecogs.com/svg.latex?%5Clambda) for elastic-net regularization
+params.lambda_scaling_factor  = 0.0189; % This is set to 0.0189 because this is the scaling factor that we want to use for the calculation of lambda for elastic-net regularization
+params.max_iterations = 100000; % This is set to 100000 because we want this to be the maximum for the number of iterations of cyclic coordinate descent that are performed
+params.tolerance = 10; % This is set to 10 because this is the tolerance convergence criterion that we want to use for cyclic coordinate descent
+params.ICA_ADMIRE_flag = 1; % This is set to 1 because we want to apply ICA to the ADMIRE model matrices.
+params.channel_data_output_flag = 1; % This is set to 1 because we want the ADMIRE-processed channel data to be outputted along with the image data
+params.aperture_growth_flag = 1; % This is set to 1 because we want to apply aperture growth
+params.min_num_elements = 16; % This is set to 16 because we do not want aperture growth to reduce the number of elements to less than 16
+params.F_number = 2; % This is set to 2 because we want to use an F number of 2 for aperture growth
+
 ```
 
 ## License
