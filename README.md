@@ -211,7 +211,11 @@ params.probe_type = 'Linear'; % This is set to 'Linear' because a linear probe w
 params.probe_name = 'Field II Linear Transducer Array'; % This parameter is just used for purposes of recordkeeping and can be set to any string
 params.probe_radius = 0; % This parameter is not used due to the fact that params.probe_type = 'Linear', so it is just set to a random number
 params.dtheta = 0; % This parameter is not used due to the fact that params.probe_type = 'Linear', so it is just set to a random number
-params.probe_pitch = 
+params.probe_pitch = 1.953E-4; % This is set to 1.953E-4 because this was the pitch of the probe that was simulated in Field II
+params.start_depth_ADMIRE = 0; % This is set to 0 because we want ADMIRE to start being applied at a depth of 0.
+params.end_depth_ADMIRE = 10; % This is set to 10 because we want to apply ADMIRE through the full depth range of the data (note that the channel data does not go to a depth of 10 m, but we are just taking advantage of the fact that the code will automatically change this to the maximum depth of the data if the value entered exceeds it)
+params.alpha = 0.9; % This is set to 0.9 because we want this alpha value for elastic-net regularization
+params.lambda_scaling_factor  = 0.0189; % This is set to 0.0189 because this is the ![c_lambda](https://latex.codecogs.com/svg.latex?c_%7B%5Clambda%7D) value that we want to use for the calculation of ![lambda](https://latex.codecogs.com/svg.latex?%5Clambda) for elastic-net regularization
 ```
 
 ## License
