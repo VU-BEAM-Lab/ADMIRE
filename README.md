@@ -186,6 +186,7 @@ Once the ADMIRE models are generated, ultrasound channel data can be processed w
 In order to process ultrasound channel data using the ```ADMIRE_models_application_main.m``` script, the channel data must be saved to a file. The channel data should be the only variable that is saved to the file, but the variable name does not matter. In addition, if multiple frames are acquired and the channel data is 4-D, then the script will process each frame with ADMIRE due to the fact that it checks the size of the fourth dimension and loops through each frame. 
 
 ## Tutorial #1: Offline Processing of Data
+Suppose we have simulated multiple sets of channel data using Field II and that we have assembled the sets into a 4-D matrix called ```channel_data_matrix```. Each set of channel data consists of 2,000 depth samples, 128 elements, and 128 beams. Moreover, a linear probe with parameters similar to an L7-4 probe were used for the simulation, and we want to process this data using the GPU implementation of ADMIRE. 
 
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
