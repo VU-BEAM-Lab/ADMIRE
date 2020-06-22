@@ -192,6 +192,12 @@ Suppose we have simulated 10 sets of channel data using Field II and that we hav
 channel_data_matrix = channel_data_matrix .* 1E25;
 ```
 
+Once the data is scaled, we will save it to a file named ```channel_data_for_ADMIRE.mat```. Following this, the ADMIRE models that are required for processing the channel data with ADMIRE must be generated. To do so, we will use the ```ADMIRE_models_generation_main.m``` script. As previously stated, this script requires several parameters to be defined by the user. We will define these parameters as shown below. Note that we indicate which parameters are not required for this case.
+
+```Matlab
+params.processor_type = 'GPU'; % This is set to 'GPU' because we want to use the GPU implementation of ADMIRE
+params.data_type = 'Reshaped'; % This is set to 'Reshaped' because the data is in the form (Depths + t0 - 1) x Elements per Beam x Beams x Frames
+
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
 
