@@ -196,7 +196,7 @@ Once the data is scaled, we will save it to a file named ```channel_data_for_ADM
 
 ```Matlab
 params.processor_type = 'GPU'; % This is set to 'GPU' because we want to use the GPU implementation of ADMIRE
-params.data_type = 'Reshaped'; % This is set to 'Reshaped' because the data is in the form (Depths + t0 - 1) x Elements per Beam x Beams x Frames
+params.data_type = 'Reshaped'; % This is set to 'Reshaped' because channel_data_matrix is in the form (Depths + t0 - 1) x Elements per Beam x Beams x Frames
 params.t0 = 1; % This is set to 1 because the first depth sample corresponds to a depth of 0
 params.c = 1540; % This is set to 1540 because this was the speed of sound that was used in Field II
 params.num_buffer_rows = 0; % This parameter does not matter due to the fact that params.data_type = 'Reshaped', so it is just set to a random number
@@ -227,6 +227,21 @@ params.models_save_path = 'enter path here'; % This should be set to the path to
 ```
 
 Note that for the rest of the parameters, we will use the values that are already in the script. Once the parameters are defined, we will run the script within MATLAB. The progress of the script will be displayed in the MATLAB command prompt. This script will generate a model for each frequency that is to be fit in each short-time Fourier transform (STFT) window. The models only need to be generated once and not per beam because all of the beams use the same aperture domain models. In addition, due to the fact that we selected the GPU implementation of ADMIRE, the models will also be organized in the format that the GPU implementation expects.
+
+After the script completes, we will use the ```ADMIRE_models_application_main.m``` script to process the channel data with ADMIRE. As previously stated, this script requires several parameters to be defined by the user, and we will define them as shown below.
+
+```Matlab
+apply_params.models_load_path = 'enter path here'; % This should be set to the path to the directory in which the generated ADMIRE models are saved
+apply_params.data_load_path = 'enter path here'; % This should be set to the path to the directory in which the channel data is saved (in this case, it is the path to the directory in which the channel_data_for_ADMIRE.mat file is saved)
+apply_params.filename = 'channel_data_for_ADMIRE.mat'; % This is set to 'channel_data_for_ADMIRE.mat' because that is the name of the file to which we saved channel_data_matrix
+apply_params.processed_data_save_path = 'enter path here'; % This should be set to the path to the directory in which the ADMIRE-processed data is saved
+apply_params.processed_data_filename = 'ADMIRE_processed_data.mat'; % This should be set to the name of the file to which the ADMIRE-processed data is saved (in this case, we will name the file 'ADMIRE_processed_data.mat')
+apply_params.processor_type = 'GPU'; % This is set to 'GPU' because we want to use the GPU implementation of ADMIRE
+apply_params.probe_type = 'Linear'; % This is set to 'Linear' because a linear probe was simulated in Field II
+apply_params.data_type = 'Reshaped'; % This is set to 'Reshaped' because channel_data_matrix is in the form (Depths + t0 - 1) x Elements per Beam x Beams x Frames
+apply_params.display_image_flag = 1; % This is set to 1 because we want to display the ADMIRE-processed image for each frame of channel data
+apply_params.display_caxis_limits = [-60 0]; % This is set to [-60 0] because we want to display the ADMIRE-processed images with a dynamic range of 60 dB
+```
 
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
