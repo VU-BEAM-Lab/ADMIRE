@@ -255,6 +255,8 @@ caxis([-60 0]);
 axis image;
 ```
 
+## Tutorial #2: Real-Time Imaging with a Verasonics Vantage Ultrasound Research System
+
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
 
