@@ -213,13 +213,13 @@ params.probe_name = 'Field II Linear Transducer Array'; % This parameter is just
 params.probe_radius = 0; % This parameter is not used due to the fact that params.probe_type = 'Linear', so it is just set to a random number
 params.dtheta = 0; % This parameter is not used due to the fact that params.probe_type = 'Linear', so it is just set to a random number
 params.probe_pitch = 1.953E-4; % This is set to 1.953E-4 because this was the pitch of the probe that was simulated in Field II
-params.start_depth_ADMIRE = 0; % This is set to 0 because we want ADMIRE to start being applied at a depth of 0.
+params.start_depth_ADMIRE = 0; % This is set to 0 because we want ADMIRE to start being applied at a depth of 0
 params.end_depth_ADMIRE = 10; % This is set to 10 because we want to apply ADMIRE through the full depth range of the data (note that the channel data does not go to a depth of 10 m, but we are just taking advantage of the fact that the code will automatically change this to the maximum depth of the data if the value entered exceeds it)
 params.alpha = 0.9; % This is set to 0.9 because we want this alpha value for elastic-net regularization
 params.lambda_scaling_factor  = 0.0189; % This is set to 0.0189 because this is the scaling factor that we want to use for the calculation of lambda for elastic-net regularization
 params.max_iterations = 100000; % This is set to 100000 because we want this to be the maximum for the number of iterations of cyclic coordinate descent that are performed
 params.tolerance = 10; % This is set to 10 because this is the tolerance convergence criterion that we want to use for cyclic coordinate descent
-params.ICA_ADMIRE_flag = 1; % This is set to 1 because we want to apply ICA to the ADMIRE model matrices.
+params.ICA_ADMIRE_flag = 1; % This is set to 1 because we want to apply ICA to the ADMIRE model matrices
 params.channel_data_output_flag = 1; % This is set to 1 because we want the ADMIRE-processed channel data to be outputted along with the image data
 params.aperture_growth_flag = 1; % This is set to 1 because we want to apply aperture growth
 params.min_num_elements = 16; % This is set to 16 because we do not want aperture growth to reduce the number of elements to less than 16
@@ -284,7 +284,7 @@ Once we have the parameters provided by the ```ADMIRE_curvilinear_probe_verasoni
 params.processor_type = 'GPU'; % This is set to 'GPU' because we want to use the GPU implementation of ADMIRE
 params.data_type = 'Verasonics RF Buffer'; % This is set to 'Verasonics RF Buffer' because the data is of type int16 and in the form Buffer Rows x Total Elements On Transducer x Frames
 params.t0 = 1; % This is set to 1 because the first depth sample corresponds to a depth of 0
-params.c = 1540; % This is set to 1540 because this was the speed of sound that was used in Field II
+params.c = 1540; % This is set to 1540 because we want to use this as the speed of sound in the medium
 params.num_buffer_rows = 0; % This parameter does not matter due to the fact that params.data_type = 'Reshaped', so it is just set to a random number
 params.num_depths = 2000; % This is set to 2000 because this is the number of depth samples after params.t0 is accounted for (params.t0 is just 1 in this case)
 params.num_elements = 128; % This is set to 128 because this is how many elements there are per beam
@@ -298,17 +298,17 @@ params.probe_name = 'Field II Linear Transducer Array'; % This parameter is just
 params.probe_radius = 0; % This parameter is not used due to the fact that params.probe_type = 'Linear', so it is just set to a random number
 params.dtheta = 0; % This parameter is not used due to the fact that params.probe_type = 'Linear', so it is just set to a random number
 params.probe_pitch = 1.953E-4; % This is set to 1.953E-4 because this was the pitch of the probe that was simulated in Field II
-params.start_depth_ADMIRE = 0; % This is set to 0 because we want ADMIRE to start being applied at a depth of 0.
+params.start_depth_ADMIRE = 0; % This is set to 0 because we want ADMIRE to start being applied at a depth of 0
 params.end_depth_ADMIRE = 10; % This is set to 10 because we want to apply ADMIRE through the full depth range of the data (note that the channel data does not go to a depth of 10 m, but we are just taking advantage of the fact that the code will automatically change this to the maximum depth of the data if the value entered exceeds it)
-params.alpha = 0.9; % This is set to 0.9 because we want this alpha value for elastic-net regularization
-params.lambda_scaling_factor  = 0.0189; % This is set to 0.0189 because this is the scaling factor that we want to use for the calculation of lambda for elastic-net regularization
-params.max_iterations = 100000; % This is set to 100000 because we want this to be the maximum for the number of iterations of cyclic coordinate descent that are performed
-params.tolerance = 10; % This is set to 10 because this is the tolerance convergence criterion that we want to use for cyclic coordinate descent
-params.ICA_ADMIRE_flag = 1; % This is set to 1 because we want to apply ICA to the ADMIRE model matrices.
-params.channel_data_output_flag = 1; % This is set to 1 because we want the ADMIRE-processed channel data to be outputted along with the image data
-params.aperture_growth_flag = 1; % This is set to 1 because we want to apply aperture growth
-params.min_num_elements = 16; % This is set to 16 because we do not want aperture growth to reduce the number of elements to less than 16
-params.F_number = 2; % This is set to 2 because we want to use an F number of 2 for aperture growth
+params.alpha = 0.9; % This is set to 0.9 because we want this alpha value for elastic-net regularization (note that this will be redefined by the Verasonics sequence as previously mentioned)
+params.lambda_scaling_factor  = 0.0189; % This is set to 0.0189 because this is the scaling factor that we want to use for the calculation of lambda for elastic-net regularization (note that this will be redefined by the Verasonics sequence as previously mentioned)
+params.max_iterations = 100000; % This is set to 100000 because we want this to be the maximum for the number of iterations of cyclic coordinate descent that are performed (note that this will be redefined by the Verasonics sequence as previously mentioned)
+params.tolerance = 10; % This is set to 10 because this is the tolerance convergence criterion that we want to use for cyclic coordinate descent (note that this will be redefined by the Verasonics sequence as previously mentioned)
+params.ICA_ADMIRE_flag = 1; % This is set to 1 because we want to apply ICA to the ADMIRE model matrices
+params.channel_data_output_flag = 0; % This is set to 0 because we don't want the channel data to be outputted (we only want the ADMIRE-processed image data for real-time imaging)
+params.aperture_growth_flag = 0; % This is set to 0 because we do not want to apply aperture growth
+params.min_num_elements = 0; % This parameter is not used due to the fact that params.aperture_growth_flag = 0, so it is just set to a random number
+params.F_number = 0; % This parameter is not used due to the fact that params.aperture_growth_flag = 0, so it is just set to a random number
 params.models_save_path = 'enter path here'; % This should be set to the path to the directory in which we want the generated ADMIRE models to be saved
 ```
 
