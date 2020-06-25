@@ -256,7 +256,23 @@ axis image;
 ```
 
 ## Tutorial #2: Real-Time Imaging with ADMIRE Using a Verasonics Vantage Ultrasound Research System
-In order to perform real-time imaging with ADMIRE on a Verasonics Vantage ultrasound research system, two Verasonics scripts are provided. These scripts are called ```SetUpL7_4_RyLns_ADMIRE.m``` and ```SetUpC5_2_RyLns_ADMIRE.m```, and they were tested on a Verasonics Vantage 128 ultrasound research system. The first script performs walked aperture scans using an L7-4 linear transducer array, and the second script performs walked aperture scans using a C5-2 curvilinear transducer array. In this example, we will demonstrate how to perform real-time imaging using the C5-2 curvilinear transducer array. We will start by opening up the ```SetUpC5_2_RyLns_ADMIRE.m``` script. Below, you will see some of the parameters from this script that migh
+In order to perform real-time imaging with ADMIRE on a Verasonics Vantage ultrasound research system, two Verasonics scripts are provided. These scripts are called ```SetUpL7_4_RyLns_ADMIRE.m``` and ```SetUpC5_2_RyLns_ADMIRE.m```, and they were tested on a Verasonics Vantage 128 ultrasound research system. The first script performs walked aperture scans using an L7-4 linear transducer array, and the second script performs walked aperture scans using a C5-2 curvilinear transducer array. In this example, we will demonstrate how to perform real-time imaging using the C5-2 curvilinear transducer array. We will start by opening up the ```SetUpC5_2_RyLns_ADMIRE.m``` script. Below, you will see some of the parameters in this script that might be altered.
+
+```Matlab
+% Define P structure
+P.startDepth = 0;                 % Start depth for acquisition (wavelengths)
+P.endDepth = 300;                 % End depth for acquisition (wavelengths)
+P.txFocus = 236;                  % Initial transmit focus (wavelengths)
+P.numTx = 65;                     % Number of transmit elements in TX aperture (where possible)
+P.num_beams = 128 - P.numTx + 1;  % Number of beams (walked aperture)
+P.numFrames = 1;                  % Number of frames in RcvBuffer
+
+% Define initial values for adjustable ADMIRE parameters 
+alpha = 0.9;                      % Alpha for elastic-net regularization
+lambda_scaling_factor = 0.0189;   % Lambda scaling factor used to scale lambda for elastic-net regularization
+max_iterations = 1E5;         % Maximum number of cyclic coordinate descent iterations to perform (convergence criterion)
+tolerance = 10;                   % Maximum coefficient change tolerance for cyclic coordinate descent (convergence criterion)
+```
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
 
