@@ -158,7 +158,7 @@ In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses
 ```params.outer_model_z_position_constants```: The constant that is used to define the possible depth positions of the outer model for the predictors in the ```generate_models_for_stft_window.m``` function. The value that is already in the script is 
 ```params.outer_model_z_position_constants = [0]```.
 
-```params.outer_model_distance_offset_constants```: The constants that describe the minimum and maximum distance offsets (m) that are used for the outer model predictors in the ```generate_models_for_stft_window.m``` function. The values that are already in the script ```params.outer_model_distance_offset_constants = [-8E-3, 3.2E-3]```.
+```params.outer_model_distance_offset_constants```: The constants that describe the minimum and maximum distance offsets (m) that are used for the outer model predictors in the ```generate_models_for_stft_window.m``` function. The values that are already in the script are ```params.outer_model_distance_offset_constants = [-8E-3, 3.2E-3]```.
 
 ## ADMIRE Models Application User-Defined Parameters
 Once the ADMIRE models are generated, ultrasound channel data can be processed with ADMIRE using the ```ADMIRE_models_application_main.m``` script. This script is used for offline processing of data and not real-time processing. The parameters that are user-defined for this script are described below.
