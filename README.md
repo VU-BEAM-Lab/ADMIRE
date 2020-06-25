@@ -273,6 +273,9 @@ lambda_scaling_factor = 0.0189;   % Lambda scaling factor used to scale lambda f
 max_iterations = 1E5;         % Maximum number of cyclic coordinate descent iterations to perform (convergence criterion)
 tolerance = 10;                   % Maximum coefficient change tolerance for cyclic coordinate descent (convergence criterion)
 ```
+
+Note that the GPU implementation of ADMIRE assumes that the first depth sample after accounting for t0 corresponds to a depth of 0. Therefore, it is recommended to leave ```P.startDepth = 0```. In addition, notice that the number of beams to acquire for each frame is automatically calculated based off of the number of transmit elements that are used. This is due to the fact that this script assumes a walked aperture scan. For example, when ```P.numTX = 65```, the first transmit will use the first 65 elements on the C5-2 transducer array. Then, the second transmit will use 65 elements as well, but the specific elements that are used are elements 2-66 on the transducer array. Essentially, with each subsequent transmit, the active aperture shifts over by one element. Now, aside from these parameters, ```alpha```, ```lambda_scaling_factor```, ```max_iterations```, and ```tolerance``` are also shown, which are parameters that are used for ADMIRE. The values shown are the default values that are used when the Verasonics sequence is started. However, they can be changed during real-time imaging using the Verasonics GUI controls.
+
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
 
