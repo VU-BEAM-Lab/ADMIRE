@@ -313,7 +313,9 @@ params.models_save_path = 'enter path here'; % This should be set to the path to
 After the parameters are entered, we will run the script in order to generate the ADMIRE models. Due to the fact that we selected the GPU implementation of ADMIRE, the models will also be organized in the format that the GPU implementation expects. These generated models will be stored in the specified directory. In addition, this directory will contain a file called ```'ADMIRE_Variables_Curvilinear_Probe_Verasonics_RF_Buffer_Data_Type.mat'```, which contains the ADMIRE model matrices in the format that the GPU expects. We can then move this file into the same directory as the Verasonics sequence script. Once moved, we will open the ```gpu_processing_curvilinear_probe.m``` function again. This time, we will comment the block of code that we had previously uncommented. Moreover, we will uncomment the lines that we had previously commented because we now want to perform ADMIRE processing. After doing this, we will open the ```SetUpC5_2_RyLns_ADMIRE.m``` script and run it by clicking the ```Run``` GUI icon in the MATLAB command window. This will start the Verasonics sequence, and an example video of an abdominal scan being performed with the sequence is shown below. The frame rate for this video is 4-5 frames per second, and ADMIRE processing was performed using an NVIDIA GeForce GTX 1080 Ti GPU.
 
 
- <div align=”center”> ![GIF](ADMIRE_C5_2_GIF.gif) </div>
+<p align="center">
+![GIF](ADMIRE_C5_2_GIF.gif)
+</p>
 
 
 ## License
