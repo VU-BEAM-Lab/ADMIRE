@@ -314,6 +314,7 @@ After the parameters are entered, we will run the script in order to generate th
 
 ![Gif](ezgif.com-resize.gif)
 ![Gif2](ezgif.com-video-to-gif.gif)
+![Gif3](ADMIRE_C5_2_GIF.gif)
 
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
