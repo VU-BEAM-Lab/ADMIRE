@@ -325,7 +325,7 @@ For copyright information, please refer to the [NOTICE](NOTICE) file.
 This is free software made available under the Apache License, Version 2.0. For details, refer to the [LICENSE](LICENSE) file. 
 
 ## Contact Information
-If you have questions/inquiries, please use the Issues section of this repository or contact Christopher Khan (christopher.m.khan@vanderbilt.edu).
+If you have questions, suggestions, or bugs to report, please use the Issues section of this repository or contact Christopher Khan (christopher.m.khan@vanderbilt.edu).
 
 ## Acknowledgements
 This work was supported by NIH grants R01EB020040 and S10OD016216-01 and NAVSEA grant N0002419C4302.
