@@ -314,7 +314,7 @@ After the parameters are entered, we will run the script in order to generate th
 
 
 <p align="center">
-<![GIF](ADMIRE_C5_2_GIF.gif)>
+<img ![GIF](ADMIRE_C5_2_GIF.gif) />
 </p>
 
 
