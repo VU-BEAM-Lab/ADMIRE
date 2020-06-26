@@ -317,7 +317,6 @@ After the parameters are entered, we will run the script in order to generate th
   <img src="ADMIRE_C5_2_GIF.gif" />
 </p>
 
-![GIF](ADMIRE_C5_2_GIF.gif)
 
 ## License
 Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
