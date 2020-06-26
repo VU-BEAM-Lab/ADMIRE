@@ -10,7 +10,7 @@
 7. [Tutorial #1: Offline Processing of Data](#Tutorial-1-Offline-Processing-of-Data)
 8. [Tutorial #2: Real-Time Imaging with ADMIRE Using a Verasonics Vantage Ultrasound Research System](#Tutorial-2-Real-Time-Imaging-with-ADMIRE-Using-a-Verasonics-Vantage-Ultrasound-Research-System)
 9. [License](#License)
-10. Contact Information
+10. [Contact Information](#Contact-Information)
 11. [Acknowledgements](#Acknowledgements)
 
 ## Overview
