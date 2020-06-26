@@ -319,7 +319,7 @@ After the parameters are entered, we will run the script in order to generate th
 
 
 ## License
-Copyright 2020 Christopher Khan (christopher.m.khan@vanderbilt.edu)
+For copyright information, please refer to the [NOTICE](NOTICE) file.
 
 This is free software made available under the Apache License, Version 2.0. For details, refer to the [LICENSE](LICENSE) file. 
 
