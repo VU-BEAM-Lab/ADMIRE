@@ -92,9 +92,9 @@ In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses
 
 ```params.probe_pitch```: The pitch of the transducer array (m).
 
-```params.start_depth_ADMIRE```: The start depth for applying ADMIRE (m). If the start depth is less than the minimum depth for the scan, then the start depth is set to the minimum depth automatically.
+```params.start_depth_ADMIRE```: The start depth for applying ADMIRE (m). If the start depth is less than the minimum depth for the scan (assumed to be 0), then the start depth is set to the minimum depth automatically. Note that delay-and-sum is applied to all of the depths before the start depth.
 
-```params.end_depth_ADMIRE```: The end depth for applying ADMIRE (m). If the end depth is greater than the maximum depth for the scan, then the end depth is set to the maximum depth automatically.
+```params.end_depth_ADMIRE```: The end depth for applying ADMIRE (m). If the end depth is greater than the maximum depth for the scan, then the end depth is set to the maximum depth automatically. Note that delay-and-sum is applied to all of the depths after the end depth.
 
 ```params.alpha```: The alpha value that is used to weight the L1-regularization and L2-regularization terms in elastic-net regularization. The range for this value is [0, 1], and a typical value is ```params.alpha = 0.9```.
 
