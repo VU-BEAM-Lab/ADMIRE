@@ -219,7 +219,7 @@ params.end_depth_ADMIRE = 10; % This is set to 10 because we want to apply ADMIR
 params.alpha = 0.9; % This is set to 0.9 because we want this alpha value for elastic-net regularization
 params.lambda_scaling_factor  = 0.0189; % This is set to 0.0189 because this is the scaling factor that we want to use for the calculation of lambda for elastic-net regularization
 params.max_iterations = 100000; % This is set to 100000 because we want this to be the maximum for the number of iterations of cyclic coordinate descent that are performed
-params.tolerance = 10; % This is set to 10 because this is the tolerance convergence criterion that we want to use for cyclic coordinate descent
+params.tolerance = 0.1; % This is set to 0.1 because this is the tolerance convergence criterion that we want to use for cyclic coordinate descent
 params.ICA_ADMIRE_flag = 1; % This is set to 1 because we want to apply ICA to the ADMIRE model matrices
 params.channel_data_output_flag = 1; % This is set to 1 because we want the ADMIRE-processed channel data to be outputted along with the image data
 params.aperture_growth_flag = 1; % This is set to 1 because we want to apply aperture growth
@@ -272,7 +272,7 @@ P.numFrames = 1;                  % Number of frames in RcvBuffer
 alpha = 0.9;                      % Alpha for elastic-net regularization
 lambda_scaling_factor = 0.0189;   % Lambda scaling factor used to scale lambda for elastic-net regularization
 max_iterations = 1E5;             % Maximum number of cyclic coordinate descent iterations to perform (convergence criterion)
-tolerance = 10;                   % Maximum coefficient change tolerance for cyclic coordinate descent (convergence criterion)
+tolerance = 0.1;                  % Maximum weighted (observation weights are all 1 in this case) sum of squares of the changes in the fitted values between iterations of cyclic coordinate descent (convergence criterion)
 ```
 
 Note that the GPU implementation of ADMIRE assumes that the first depth sample after accounting for t0 corresponds to a depth of 0. Therefore, it is recommended to leave ```P.startDepth = 0```. In addition, notice that the number of beams to acquire for each frame is automatically calculated based off of the number of transmit elements that are used. This is due to the fact that this script assumes a walked aperture scan. For example, when ```P.numTx = 65```, the first transmit will use the first 65 elements on the C5-2 transducer array. Then, the second transmit will use 65 elements as well, but the specific elements that are used are elements 2-66 on the transducer array. Essentially, with each subsequent transmit, the active aperture shifts over by one element. Now, aside from these parameters, ```alpha```, ```lambda_scaling_factor```, ```max_iterations```, and ```tolerance``` are also shown, which are parameters that are used for ADMIRE. The values shown are the default values that are used when the Verasonics sequence is started. However, they can be changed during real-time imaging using the Verasonics GUI controls. To run this script, the models that ADMIRE uses to process the ultrasound data must be generated. For a given set of sequence parameters, these models only have to be generated once, and after this, they can be reused. However, if sequence parameters such as ```P.endDepth```, ```P.numTx```, ```P.num_beams```,    ```Resource.Parameters.speedOfSound```, ```Trans.frequency```, or ```'sampleMode'``` are changed, then the ADMIRE models will have to be generated again. 
@@ -302,7 +302,7 @@ params.end_depth_ADMIRE = 10; % This is set to 10 because we want to apply ADMIR
 params.alpha = 0.9; % This is set to 0.9 because we want this alpha value for elastic-net regularization (note that this will be redefined by the Verasonics sequence as previously mentioned)
 params.lambda_scaling_factor  = 0.0189; % This is set to 0.0189 because this is the scaling factor that we want to use for the calculation of lambda for elastic-net regularization (note that this will be redefined by the Verasonics sequence as previously mentioned)
 params.max_iterations = 100000; % This is set to 100000 because we want this to be the maximum for the number of iterations of cyclic coordinate descent that are performed (note that this will be redefined by the Verasonics sequence as previously mentioned)
-params.tolerance = 10; % This is set to 10 because this is the tolerance convergence criterion that we want to use for cyclic coordinate descent (note that this will be redefined by the Verasonics sequence as previously mentioned)
+params.tolerance = 0.1; % This is set to 0.1 because this is the tolerance convergence criterion that we want to use for cyclic coordinate descent (note that this will be redefined by the Verasonics sequence as previously mentioned)
 params.ICA_ADMIRE_flag = 1; % This is set to 1 because we want to apply ICA to the ADMIRE model matrices
 params.channel_data_output_flag = 0; % This is set to 0 because we don't want the channel data to be outputted (we only want the ADMIRE-processed image data for real-time imaging)
 params.aperture_growth_flag = 0; % This is set to 0 because we do not want to apply aperture growth
