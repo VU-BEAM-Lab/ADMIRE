@@ -12,8 +12,9 @@
 9. [Additional Notes](#Additional-Notes)
 10. [License](#License)
 11. [External Code Used in this Repository](#External-Code-Used-in-this-Repository)
-12. [Contact Information](#Contact-Information)
-13. [Acknowledgements](#Acknowledgements)
+12. [Citing this Repository](#Citing-this-Repository)
+13. [Contact Information](#Contact-Information)
+14. [Acknowledgements](#Acknowledgements)
 
 ## Overview
 ADMIRE (Aperture Domain Model Image REconstruction) is a model-based approach to ultrasound beamforming. The overview of the method is that ultrasound channel data is first collected and time-delayed. Following this, the short-time Fourier transform (STFT) is taken through the depth dimension for each channel, and the aperture domain data for several frequencies within each STFT window are fit using models. The frequencies that are typically fit correspond to the bandwidth of the ultrasound pulse. Each model consists of the modeled wavefronts, localized in time and frequency, that return to the aperture from different scattering locations. Linear regression with elastic-net regularization is utilized to perform the fits, and the objective function is shown below. This objective function is minimized using the cyclic coordinate descent optimization algorithm.
@@ -340,7 +341,7 @@ For copyright information, please refer to the [NOTICE](NOTICE) file.
 This is free software made available under the Apache License, Version 2.0. For details, refer to the [LICENSE](LICENSE) file. 
 
 ## External Code Used in this Repository
-The code contained in the ```ica.m``` function was obtained from the paper "A Tutorial on Independent Component Analysis" by Jonathon Shlens. This paper is publicly available on arXiv and can be accessed at https://arxiv.org/pdf/1404.2986.pdf. The citation for the paper is listed in the 
+The code contained in the ```ica.m``` function was obtained from the paper "A Tutorial on Independent Component Analysis" by Jonathon Shlens. This paper is publicly available on arXiv and can be accessed at https://arxiv.org/pdf/1404.2986.pdf. The citation for the paper is listed in the [Citing this Repository] section.
 
 
 ## Contact Information
