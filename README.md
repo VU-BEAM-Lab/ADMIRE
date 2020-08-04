@@ -349,6 +349,16 @@ This is free software made available under the Apache License, Version 2.0. For 
 Please include the following citations to cite this repository in publications.
 
 ```
+@article{dei_schlunk_byram_2019, 
+	title={Computationally Efficient Implementation of Aperture Domain Model Image Reconstruction}, 
+	volume={66}, 
+	DOI={10.1109/tuffc.2019.2924824}, 
+	number={10}, journal={IEEE Transactions on Ultrasonics, Ferroelectrics, and Frequency Control}, 
+	author={{Dei}, K. and {Schlunk}, S. and {Byram}, B.}, 
+	year={2019}, 
+	pages={1546–1559}
+}
+
 @article{byram_jakovljevic_2014, 
 	title={Ultrasonic multipath and beamforming clutter reduction: a chirp model approach}, 
 	volume={61},
