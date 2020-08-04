@@ -37,6 +37,10 @@ ccd_double_precision.c
 
 The following copyright applies to the files in Section #3: Copyright Stephen Hsu
 Permission was obtained from Stephen Hsu to include these files in this repository.
+Both of these files were modified by Christopher Khan in 2020. The modification to 
+scmap.m was that the speed of sound in m/s was added as an input to the scmap function. 
+The modification to sconvert.m was that the speed of sound in m/s was added as an input
+to the scan_convert function and as an input in the scmap function call.
 
 Section #3 {
 
@@ -47,4 +51,4 @@ sconvert.m
 
 The code for the ica.m function was obtained from the paper "A Tutorial on Independent Component Analysis" by Jonathon Shlens. 
 This paper is publicly available on arXiv and can be accessed at https://arxiv.org/pdf/1404.2986.pdf. The citation for the paper
-is listed in the "Citing this Repository".
+is listed in the "Citing this Repository" section.
