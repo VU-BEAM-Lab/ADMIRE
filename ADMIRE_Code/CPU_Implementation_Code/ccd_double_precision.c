@@ -68,21 +68,21 @@ if (std != (double)0.0) {
     
 }
 
-// Define the function that performs least squares regression with elastic-net regularization using the cyclic coordinate descent optimization algorithm in order to fit the ADMIRE models to the data
+// Define the function that performs least-squares regression with elastic-net regularization using the cyclic coordinate descent optimization algorithm in order to fit the ADMIRE models to the data
 void model_fit(double * B_h, double * X_matrix_h, double * residual_y_h, double y_std, double lambda, int num_observations, int num_predictors, double alpha, double tolerance, int max_iterations) {
 
-// Declare and initialize the variable that stores the maximum weighted (observation weights are all 1 in this case) sum of squares of the changes of the fitted values for one iteration of cyclic coordinate descent
+// Declare and initialize the variable that stores the maximum weighted (observation weights are all 1 in this case) sum of squares of the changes in the fitted values for one iteration of cyclic coordinate descent
 double global_max_change = 1E12;
 
 // Declare and initialize the variable that counts how many iterations of cyclic coordinate descent have been performed
 int iteration_count = 0;
 
-// Perform cyclic coordinate descent until either the maximum number of iterations is reached or the maximum weighted (observation weights are all 1 in this case) sum of squares of the changes of the fitted values becomes less than the tolerance
+// Perform cyclic coordinate descent until either the maximum number of iterations is reached or the maximum weighted (observation weights are all 1 in this case) sum of squares of the changes in the fitted values becomes less than the tolerance
 while (global_max_change >= tolerance && iteration_count < max_iterations) {
-    // Declare and initialize the variable that stores maximum weighted (observation weights are all 1 in this case) sum of squares of the changes of the fitted values for one iteration of cyclic coordinate descent
+    // Declare and initialize the variable that stores maximum weighted (observation weights are all 1 in this case) sum of squares of the changes in the fitted values for one iteration of cyclic coordinate descent
     double max_change = 0.0;
 
-    // Declare and initialize the variable that stores the weighted (observation weights are all 1 in this case) sum of squares of the changes of the fitted values that are due to the current predictor coefficient being updated using cyclic coordinate descent
+    // Declare and initialize the variable that stores the weighted (observation weights are all 1 in this case) sum of squares of the changes in the fitted values that are due to the current predictor coefficient being updated using cyclic coordinate descent
     double change = 0.0;
 
     // Cycle through all of the predictors for one iteration of cyclic coordinate descent
@@ -131,7 +131,7 @@ while (global_max_change >= tolerance && iteration_count < max_iterations) {
         // Divide the computed correlation by the total number of observations in y (also the total number of observations in one predictor column)
         p_j = ((double)1.0 / (double)num_observations) * p_j;
 
-        // Apply the soft-thresholding function that is associated with the L1 regularization component of elastic-net regularization 
+        // Apply the soft-thresholding function that is associated with the L1-regularization component of elastic-net regularization 
         double gamma = lambda * alpha;
         if (p_j > (double)0.0 && gamma < fabs(p_j)) {
            B_j = p_j - gamma;
@@ -155,7 +155,7 @@ while (global_max_change >= tolerance && iteration_count < max_iterations) {
            }
         }
 
-        // Compute the weighted (observation weights are all 1 in this case) sum of squares of the changes of the fitted values (this is used for the tolerance convergence criterion)
+        // Compute the weighted (observation weights are all 1 in this case) sum of squares of the changes in the fitted values (this is used for the tolerance convergence criterion)
         change = ((double)1.0 / (double)num_observations) * ((previous_B_j - B_j) * (previous_B_j - B_j));
         if (change > max_change) {
            max_change = change;
