@@ -346,6 +346,7 @@ The code contained in the ```ica.m``` function was obtained from the paper "A Tu
 ## Citing this Repository
 Please include the following citations to cite this repository in publications.
 
+```
 @article{byram_jakovljevic_2014, 
 	title={Ultrasonic multipath and beamforming clutter reduction: a chirp model approach}, 
 	volume={61},
@@ -367,6 +368,7 @@ Please include the following citations to cite this repository in publications.
 	year={2015}, 
 	pages={1913–1927}
 }
+```
 
 ## Contact Information
 If you have questions, suggestions, or bugs to report, please use the Issues section of this repository or contact Christopher Khan (christopher.m.khan@vanderbilt.edu).
