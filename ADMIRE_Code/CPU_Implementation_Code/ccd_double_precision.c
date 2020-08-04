@@ -140,14 +140,16 @@ while (global_max_change >= tolerance && iteration_count < max_iterations) {
         } else {
            B_j = (double)0.0;
         }
-
+            
+        // Calculate the updated predictor coefficient value by applying the component of elastic-net regularization that is associated with L2-regularization 
+        // The 1/N term comes from the derivation of the coordinate descent update for a predictor coefficient
         B_j = B_j / (((double)1.0 / (double)num_observations) + (lambda * ((double)1.0 - alpha)));
 
         // Store the updated predictor coefficient value into the B_h array
         B_h[j] = B_j;
 
         // Update the residual values to include the contribution of the current predictor using the updated predictor coefficient value 
-        // If the updated predictor coefficient value is 0, then it's contribution to the residual values is zero
+        // If the updated predictor coefficient value is 0, then its contribution to the residual values is zero
         if (B_j != (double)0.0) {
            for (int observation_row = 0; observation_row < num_observations; observation_row++) {
                // Store the updated residual back into the residual_y_h array
