@@ -321,6 +321,7 @@ After the parameters are entered, we will run the script in order to generate th
 
 
 ## Additional Notes
+1. When generating the ADMIRE models using the ```ADMIRE_models_generation_main.m``` script, the progress is displayed in the MATLAB command window. In some cases, such as when not applying aperture growth, a warning may appear for some of the models for the first few short-time Fourier transform windows. This warning will be regarding the model matrix being singular. If you see this, then it is recommended to let the script run until the first window for which the warning does not occur is determined. Once this happens, the script should be terminated. change the ```params.start_depth_ADMIRE``` parameter.
 
 ## License
 For copyright information, please refer to the [NOTICE](NOTICE) file.
