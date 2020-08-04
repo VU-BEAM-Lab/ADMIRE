@@ -9,9 +9,10 @@
 6. [Input Data Format for Offline Processing of Data](#Input-Data-Format-for-Offline-Processing)
 7. [Tutorial #1: Offline Processing of Data](#Tutorial-1-Offline-Processing-of-Data)
 8. [Tutorial #2: Real-Time Imaging with ADMIRE Using a Verasonics Vantage Ultrasound Research System](#Tutorial-2-Real-Time-Imaging-with-ADMIRE-Using-a-Verasonics-Vantage-Ultrasound-Research-System)
-9. [License](#License)
-10. [Contact Information](#Contact-Information)
-11. [Acknowledgements](#Acknowledgements)
+9. [Additional Notes](#Additional-Notes)
+10. [License](#License)
+11. [Contact Information](#Contact-Information)
+12. [Acknowledgements](#Acknowledgements)
 
 ## Overview
 ADMIRE (Aperture Domain Model Image REconstruction) is a model-based approach to ultrasound beamforming. The overview of the method is that ultrasound channel data is first collected and time-delayed. Following this, the short-time Fourier transform (STFT) is taken through the depth dimension for each channel, and the aperture domain data for several frequencies within each STFT window are fit using models. The frequencies that are typically fit correspond to the bandwidth of the ultrasound pulse. Each model consists of the modeled wavefronts, localized in time and frequency, that return to the aperture from different scattering locations. Linear regression with elastic-net regularization is utilized to perform the fits, and the objective function is shown below. This objective function is minimized using the cyclic coordinate descent optimization algorithm.
@@ -318,6 +319,8 @@ After the parameters are entered, we will run the script in order to generate th
   <img src="DAS_ADMIRE_C5_2_GIF.gif" />
 </p>
 
+
+## Additional Notes
 
 ## License
 For copyright information, please refer to the [NOTICE](NOTICE) file.
