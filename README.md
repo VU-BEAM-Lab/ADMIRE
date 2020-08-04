@@ -340,7 +340,7 @@ For copyright information, please refer to the [NOTICE](NOTICE) file.
 This is free software made available under the Apache License, Version 2.0. For details, refer to the [LICENSE](LICENSE) file. 
 
 ## External Code Used in this Repository
-The code contained in the ica.m function was obtained from the paper "A Tutorial on Independent Component Analysis" by Jonathon Shlens. This paper is available on arXiv and can be accessed using the following link. The citation for the paper is listed in the 
+The code contained in the ```ica.m``` function was obtained from the paper "A Tutorial on Independent Component Analysis" by Jonathon Shlens. This paper is available on arXiv and can be accessed at https://arxiv.org/pdf/1404.2986.pdf. The citation for the paper is listed in the 
 
 
 ## Contact Information
