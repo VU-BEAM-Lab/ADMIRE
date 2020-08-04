@@ -100,9 +100,9 @@ In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses
 
 ```params.lambda_scaling_factor```: The scaling factor that is used in the calculation of lambda, which is used in elastic-net regularization. This is the same as ![c_lambda](https://latex.codecogs.com/svg.latex?c_%7B%5Clambda%7D), and a typical value is ```params.lambda_scaling_factor = 0.0189```.
 
-```params.max_iterations```: The maximum number of iterations of cyclic coordinate descent to perform.
+```params.max_iterations```: The maximum number of iterations of cyclic coordinate descent to perform. A typical value is ```params.max_iterations = 100000```.
 
-```params.tolerance```: The tolerance convergence criterion for cyclic coordinate descent.
+```params.tolerance```: The tolerance convergence criterion for cyclic coordinate descent. A typical value for ADMIRE with ICA is ```params.tolerance = 0.1```. However, if you are using ADMIRE without ICA, then it might be necessary to set this to a lower value such as ```params.tolerance = 0.0001``` or ```params.tolerance = 0.00001```.
 
 ```params.ICA_ADMIRE_flag```: The flag that determines whether or not ICA is applied to the ADMIRE model matrices. Set ```params.ICA_ADMIRE_flag = 0``` to not apply ICA or set ```params.ICA_ADMIRE_flag = 1``` for to apply ICA (must set ```params.ICA_ADMIRE_flag = 1``` if ```params.processor_type = 'GPU'```).
 
