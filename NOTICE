@@ -49,6 +49,17 @@ sconvert.m
 
 }
 
+The files in Section #4 were developed by modifying existing Verasonics sequence acquisition scripts.
+SetUpL7_4_RyLns_ADMIRE.m was developed by modifying SetUpL7_4_128RyLns.m, and SetUpC5_2_RyLns_ADMIRE.m
+was developed by modifying SetUpC5_2_128_RyLns.m. The last modifications were made by Christopher Khan in 2020.
+
+Section #4 {
+
+SetUpL7_4_RyLns_ADMIRE.m
+SetUpC5_2_RyLns_ADMIRE.m
+
+}
+
 The code for the ica.m function was obtained from the paper "A Tutorial on Independent Component Analysis" by Jonathon Shlens. 
 This paper is publicly available on arXiv and can be accessed at https://arxiv.org/pdf/1404.2986.pdf. The citation for the paper
 is listed in the "Citing this Repository" section.
