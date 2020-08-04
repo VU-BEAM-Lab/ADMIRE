@@ -343,7 +343,7 @@ This is free software made available under the Apache License, Version 2.0. For 
 ## External Code Used in this Repository
 1. The code contained in the ```ica.m``` function was obtained from the paper "A Tutorial on Independent Component Analysis" by Jonathon Shlens. This paper is publicly available on arXiv and can be accessed at https://arxiv.org/pdf/1404.2986.pdf. The citation for the paper is listed in the [Citing this Repository](#Citing-this-Repository) section.
 
-2. The ```scmap.m``` and ```sconvert.m``` functions were originally written by Stephen Hsu and included in this repository with his permission.
+2. The ```scmap.m``` and ```sconvert.m``` functions were originally written by Stephen Hsu and included in this repository with his permission. These files were further modified by Christopher Khan. Refer to the files for descriptions of the modifications.
 
 ## Citing this Repository
 Please include the following citations to cite this repository in publications.
