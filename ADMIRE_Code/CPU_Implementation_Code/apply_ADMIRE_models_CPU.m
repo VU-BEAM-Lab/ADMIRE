@@ -190,33 +190,22 @@ function apply_ADMIRE_models_CPU(apply_params)
                     frequency_data = frequency_data(aperture_growth_mask == 1);
                     frequency_data = frequency_data';
                     
-                    % Define the parameters for fitting the data with the
-                    % ADMIRE model using glmnet
-                    glmOpt = glmnetSet;
-                    glmOpt.standardize = 0;
-                    glmOpt.intr = 0;
-                    glmOpt.alpha = params.alpha;
-                    glmOpt.lambda = params.lambda_scaling_factor .* sqrt(mean(frequency_data .^ 2)); 
-                    glmOpt.nlambda = 1;
-                    glmOpt.dfmax = size(combined_model, 2);
-                    glmOpt.thresh = params.tolerance;
+                    % Calculate the lambda value that is used for elastic-net regularization
+                    lambda = params.lambda_scaling_factor .* sqrt(mean(frequency_data .^ 2)); 
                     
                     % Clear MEX to unload any MEX-functions from memory
                     clear mex;
-                    
-                    % Fit the data with the ADMIRE model using glmnet
-                    %fit = glmnet(combined_model, frequency_data, [], glmOpt);
-                    
+                
+                    % Fit the ADMIRE model to the data by using cyclic coordinate descent in order to perform
+                    % least-squares regression with elastic-net regularization
                     beta = ccd_double_precision([size(combined_model, 1), size(combined_model, 2), ...
-                        glmOpt.alpha, glmOpt.lambda, params.glmnet_thresh, 100000], combined_model, ...
-                        frequency_data);
-                    fit.beta = beta;
-                    
+                        params.alpha, lambda, params.tolerance, params.max_iterations], combined_model, ...
+                        frequency_data);                   
 
                     % Reconstruct the signal using the ROI predictors only
                     ROI_indices = [params.ROI_model_first_component_indices, params.ROI_model_second_component_indices];
                     ROI_model = combined_model(:, ROI_indices);
-                    ROI_B = fit.beta(ROI_indices);
+                    ROI_B = beta(ROI_indices);
                     reconstructed_frequency_data = zeros(1, length(aperture_growth_mask));
                     reconstructed_frequency_data(aperture_growth_mask == 1) = ROI_model * ROI_B;
                     
