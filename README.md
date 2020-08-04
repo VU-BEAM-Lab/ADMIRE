@@ -359,17 +359,6 @@ Please include the following citations to cite this repository in publications.
 	pages={1546–1559}
 }
 
-@article{byram_jakovljevic_2014, 
-	title={Ultrasonic multipath and beamforming clutter reduction: a chirp model approach}, 
-	volume={61},
-	DOI={10.1109/tuffc.2014.2928}, 
-	number={3}, 
-	journal={IEEE Transactions on Ultrasonics, Ferroelectrics, and Frequency Control}, 
-	author={{Byram}, B. and {Jakovljevic}, M.}, 
-	year={2014}, 
-	pages={428–440}
-}
-
 @article{byram_dei_tierney_dumont_2015, 
 	title={A model and regularization scheme for ultrasonic beamforming clutter reduction}, 
 	volume={62}, 
@@ -379,6 +368,17 @@ Please include the following citations to cite this repository in publications.
 	author={{Byram}, B. and {Dei}, K. and {Tierney}, J. and {Dumont}, D.}, 
 	year={2015}, 
 	pages={1913–1927}
+}
+
+@article{byram_jakovljevic_2014, 
+	title={Ultrasonic multipath and beamforming clutter reduction: a chirp model approach}, 
+	volume={61},
+	DOI={10.1109/tuffc.2014.2928}, 
+	number={3}, 
+	journal={IEEE Transactions on Ultrasonics, Ferroelectrics, and Frequency Control}, 
+	author={{Byram}, B. and {Jakovljevic}, M.}, 
+	year={2014}, 
+	pages={428–440}
 }
 
 @article{DBLP:journals/corr/Shlens14d,
