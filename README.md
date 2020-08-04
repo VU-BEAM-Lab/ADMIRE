@@ -382,17 +382,17 @@ Please include the following citations to cite this repository in publications.
 }
 
 @article{DBLP:journals/corr/Shlens14d,
-  author    = {Jonathon Shlens},
-  title     = {A Tutorial on Independent Component Analysis},
-  journal   = {CoRR},
-  volume    = {abs/1404.2986},
-  year      = {2014},
-  url       = {http://arxiv.org/abs/1404.2986},
-  archivePrefix = {arXiv},
-  eprint    = {1404.2986},
-  timestamp = {Mon, 13 Aug 2018 16:46:15 +0200},
-  biburl    = {https://dblp.org/rec/journals/corr/Shlens14d.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
+	author    = {Jonathon Shlens},
+  	title     = {A Tutorial on Independent Component Analysis},
+  	journal   = {CoRR},
+  	volume    = {abs/1404.2986},
+  	year      = {2014},
+  	url       = {http://arxiv.org/abs/1404.2986},
+  	archivePrefix = {arXiv},
+  	eprint    = {1404.2986},
+  	timestamp = {Mon, 13 Aug 2018 16:46:15 +0200},
+  	biburl    = {https://dblp.org/rec/journals/corr/Shlens14d.bib},
+  	bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 ```
 
