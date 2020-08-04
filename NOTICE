@@ -1,4 +1,38 @@
 Aperture Domain Model Image REconstruction (ADMIRE) Software Repository
 
-The following files in Section #1 use the following copyright: Copyright 2020 Christopher Khan, Kazuyuki Dei, Siegfried Schlunk, and Brett Byram
+The following copyright applies to the files in Section #1: Copyright 2020 Christopher Khan, Kazuyuki Dei, Siegfried Schlunk, and Brett Byram
+
+Section #1 {
+
+ADMIRE_models_generation_main.m
+ADMIRE_models_application_main.m
+generate_models_for_stft_window.m
+generate_model_for_frequency.m
+generate_modeled_signal_for_predictor.m
+wavenumber_calibration_value_lookup.m
+apply_ADMIRE_models_CPU.m
+
+}
+
+The following copyright applies to the files in Section #2: Copyright 2020 Christopher Khan
+
+Section #2 {
+
+parameter_values_check.m
+display_and_store_ADMIRE_model_space_formulas.m
+format_ADMIRE_models_for_GPU.m
+ADMIRE_linear_probe_Verasonics_parameters_calculation.m
+gpu_processing_linear_probe.m
+ADMIRE_curvilinear_probe_Verasonics_parameters_calculation.m
+gpu_processing_curvilinear_probe.m
+ADMIRE_GPU_curvilinear_probe_reshaped_data_type.cu
+ADMIRE_GPU_curvilinear_probe_Verasonics_RF_buffer_data_type.cu
+ADMIRE_GPU_linear_probe_reshaped_data_type.cu
+ADMIRE_GPU_linear_probe_Verasonics_RF_buffer_data_type.cu
+GPU_processing_kernels.cu
+definitions.h
+ccd_double_precision.c
+
+}
+
 
