@@ -343,6 +343,30 @@ This is free software made available under the Apache License, Version 2.0. For 
 ## External Code Used in this Repository
 The code contained in the ```ica.m``` function was obtained from the paper "A Tutorial on Independent Component Analysis" by Jonathon Shlens. This paper is publicly available on arXiv and can be accessed at https://arxiv.org/pdf/1404.2986.pdf. The citation for the paper is listed in the [Citing this Repository](#Citing-this-Repository) section.
 
+## Citing this Repository
+Please include the following citations to cite this repository in publications.
+
+@article{byram_jakovljevic_2014, 
+	title={Ultrasonic multipath and beamforming clutter reduction: a chirp model approach}, 
+	volume={61},
+	DOI={10.1109/tuffc.2014.2928}, 
+	number={3}, 
+	journal={IEEE Transactions on Ultrasonics, Ferroelectrics, and Frequency Control}, 
+	author={{Byram}, B. and {Jakovljevic}, M.}, 
+	year={2014}, 
+	pages={428–440}
+}
+
+@article{byram_dei_tierney_dumont_2015, 
+	title={A model and regularization scheme for ultrasonic beamforming clutter reduction}, 
+	volume={62}, 
+	DOI={10.1109/tuffc.2015.007004}, 
+	number={11}, 
+	journal={IEEE Transactions on Ultrasonics, Ferroelectrics, and Frequency Control}, 
+	author={{Byram}, B. and {Dei}, K. and {Tierney}, J. and {Dumont}, D.}, 
+	year={2015}, 
+	pages={1913–1927}
+}
 
 ## Contact Information
 If you have questions, suggestions, or bugs to report, please use the Issues section of this repository or contact Christopher Khan (christopher.m.khan@vanderbilt.edu).
