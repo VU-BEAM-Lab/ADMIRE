@@ -61,9 +61,15 @@ SetUpC5_2_RyLns_ADMIRE.m
 
 }
 
-The code for the ica.m file was obtained from the paper "A Tutorial on Independent Component Analysis" by Jonathon Shlens. 
+The code for the file in Section #5 was obtained from the paper "A Tutorial on Independent Component Analysis" by Jonathon Shlens. 
 This paper is publicly available on arXiv and can be accessed at https://arxiv.org/pdf/1404.2986.pdf. The citation for the paper
 is listed in the "Citing this Repository" section.
+
+Section #5 {
+
+ica.m
+
+} 
 
 Citing this Repository
 Please include the following citations in order to cite this repository in publications.
