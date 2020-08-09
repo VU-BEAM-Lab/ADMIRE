@@ -62,7 +62,7 @@ SetUpC5_2_RyLns_ADMIRE.m
 }
 
 The code for the file in Section #5 was obtained from the paper "A Tutorial on Independent Component Analysis" by Jonathon Shlens. 
-This paper is publicly available on arXiv and can be accessed at https://arxiv.org/pdf/1404.2986.pdf. In terms of the license, the 
+This paper is publicly available on arXiv.org and can be accessed at https://arxiv.org/pdf/1404.2986.pdf. In terms of the license, the 
 submitter granted arXiv.org a perpetual, non-exclusive license to distribute the article. The citation for the paper is listed in 
 the "Citing this Repository" section.
 
