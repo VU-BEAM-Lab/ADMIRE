@@ -345,7 +345,7 @@ save(fullfile(params.models_save_path, filename), '-v7.3', 'combined_model', 'pa
 ## License
 For copyright information, please refer to the [NOTICE](NOTICE) file.
 
-This is free software made available under the Apache License, Version 2.0. For details, refer to the [LICENSE](LICENSE) file. In addition, as previously stated, the code for the ```ica.m``` function was obtained from the paper "A Tutorial on Independent Component Analysis" by Jonathon Shlens, which is available on arXiv.org. In terms of the license, the submitter granted arXiv.org a perpetual, non-exclusive license to distribute the article.
+This is free software made available under the Apache License, Version 2.0. For details, refer to the [LICENSE](LICENSE) file. In addition, as described in the [External Code Used in this Repository](#External-Code-Used-in-this-Repository) section, the code for the ```ica.m``` function was obtained from the paper "A Tutorial on Independent Component Analysis" by Jonathon Shlens, which is available on arXiv.org. In terms of the license, the submitter granted arXiv.org a perpetual, non-exclusive license to distribute the article.
 
 ## Citing this Repository
 Please include the following citations to cite this repository in publications.
