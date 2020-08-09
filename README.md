@@ -10,8 +10,8 @@
 7. [Tutorial #1: Offline Processing of Data](#Tutorial-1-Offline-Processing-of-Data)
 8. [Tutorial #2: Real-Time Imaging with ADMIRE Using a Verasonics Vantage Ultrasound Research System](#Tutorial-2-Real-Time-Imaging-with-ADMIRE-Using-a-Verasonics-Vantage-Ultrasound-Research-System)
 9. [Additional Notes](#Additional-Notes)
-10. [License](#License)
-11. [External Code Used in this Repository](#External-Code-Used-in-this-Repository)
+10. [External Code Used in this Repository](#External-Code-Used-in-this-Repository)
+11. [License](#License)
 12. [Citing this Repository](#Citing-this-Repository)
 13. [Contact Information](#Contact-Information)
 14. [Acknowledgements](#Acknowledgements)
@@ -337,15 +337,15 @@ save(fullfile(params.models_save_path, filename), '-v7.3', 'combined_model', 'pa
 
 5. When performing real-time imaging with ADMIRE on a Verasonics Vantage ultrasound research system, a Verasonics GUI control that allows for the transmit focus to be updated in real-time is provided. It is important to note that the calculation of the ```params.t0``` parameter depends upon the transmit focus, so it is recommended to not update the transmit focus in real-time. This is because the ```params.t0``` parameter is calculated and used in the ```ADMIRE_models_generation_main.m``` script to generate the parameters that are utilized during real-time imaging as previously described. If a different transmit focus is desired, then it is recommended to update the transmit focus, calculate the new value for ```params.t0```, and run the ```ADMIRE_models_generation_main.m``` script again. If the transmit focus is updated in real-time, then the value for ```params.t0``` that was previously used in the ```ADMIRE_models_generation_main.m``` script will most likely not be valid anymore. Therefore, this may cause degradation in image quality.
 
+## External Code Used in this Repository
+1. The code contained in the ```ica.m``` function was obtained from the paper "A Tutorial on Independent Component Analysis" by Jonathon Shlens. This paper is publicly available on arXiv and can be accessed at https://arxiv.org/pdf/1404.2986.pdf. In addition, the paper was submitted granting arXiv a perpetual, non-exclusive license to distribute the article. The citation for the paper is listed in the [Citing this Repository](#Citing-this-Repository) section.
+
+2. The ```scmap.m``` and ```sconvert.m``` functions were originally written by Stephen Hsu and included in this repository with his permission. These files were further modified by Christopher Khan. Refer to the files for descriptions of the modifications.
+
 ## License
 For copyright information, please refer to the [NOTICE](NOTICE) file.
 
 This is free software made available under the Apache License, Version 2.0. For details, refer to the [LICENSE](LICENSE) file. 
-
-## External Code Used in this Repository
-1. The code contained in the ```ica.m``` function was obtained from the paper "A Tutorial on Independent Component Analysis" by Jonathon Shlens. This paper is publicly available on arXiv and can be accessed at https://arxiv.org/pdf/1404.2986.pdf. The citation for the paper is listed in the [Citing this Repository](#Citing-this-Repository) section.
-
-2. The ```scmap.m``` and ```sconvert.m``` functions were originally written by Stephen Hsu and included in this repository with his permission. These files were further modified by Christopher Khan. Refer to the files for descriptions of the modifications.
 
 ## Citing this Repository
 Please include the following citations to cite this repository in publications.
