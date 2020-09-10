@@ -127,65 +127,65 @@ In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses
 
 * ```params.cal_shift```: The calibration offset (m) that is used for the ```tau_n0``` calculation in the ```generate_modeled_signal_for_predictor.m``` function. It is recommended to set ```params.cal_shift = 7.75E-6```.
 
-```params.distance_offset_shift```: The calibration offset (m) that is used for the distance offset in the ```generate_modeled_signal_for_predictor.m``` function. It is recommended to set ```params.distance_offset_shift = 3.85E-5```.
+* ```params.distance_offset_shift```: The calibration offset (m) that is used for the distance offset in the ```generate_modeled_signal_for_predictor.m``` function. It is recommended to set ```params.distance_offset_shift = 3.85E-5```.
 
-```params.win_tune```: The scaling factor that is multiplied by the ```half_pulse_length_distance``` variable in the ```generate_modeled_signal_for_predictor.m``` function. It is recommended to set ```params.win_tune = 1```.
+* ```params.win_tune```: The scaling factor that is multiplied by the ```half_pulse_length_distance``` variable in the ```generate_modeled_signal_for_predictor.m``` function. It is recommended to set ```params.win_tune = 1```.
 
-```params.ellipsoid_constant_1```: The constant that is used in the ROI model ellipsoidal acceptance region calculation in the ```generate_models_for_stft_window.m``` function. It is recommended to set ```params.ellipsoid_constant_1 = 0```.
+* ```params.ellipsoid_constant_1```: The constant that is used in the ROI model ellipsoidal acceptance region calculation in the ```generate_models_for_stft_window.m``` function. It is recommended to set ```params.ellipsoid_constant_1 = 0```.
 
-```params.ellipsoid_constant_2```: The constant that is used in the outer model ellipsoidal acceptance region calculation in the ```generate_models_for_stft_window.m``` function. It is recommended to set ```params.ellipsoid_constant_2 = 0.5E-3 + eps```.
+* ```params.ellipsoid_constant_2```: The constant that is used in the outer model ellipsoidal acceptance region calculation in the ```generate_models_for_stft_window.m``` function. It is recommended to set ```params.ellipsoid_constant_2 = 0.5E-3 + eps```.
 
-```params.lateral_limit_offset```: The calibration offset (m) that is used in calculating the possible lateral positions for the outer model predictors in the ```generate_models_for_stft_window.m``` function. It is recommended to set ```params.lateral_limit_offset = 1E-3```.
+* ```params.lateral_limit_offset```: The calibration offset (m) that is used in calculating the possible lateral positions for the outer model predictors in the ```generate_models_for_stft_window.m``` function. It is recommended to set ```params.lateral_limit_offset = 1E-3```.
 
-```params.stft_window_overlap```: The fraction of samples that overlap between short-time Fourier transform (STFT) windows. You must set ```params.stft_window_overlap = 0``` in this code release.
+* ```params.stft_window_overlap```: The fraction of samples that overlap between short-time Fourier transform (STFT) windows. You must set ```params.stft_window_overlap = 0``` in this code release.
 
-```params.gamma_im```: The gamma parameter that is used for intentional modulation. You must set ```params.gamma_im = 0``` in this code release.
+* ```params.gamma_im```: The gamma parameter that is used for intentional modulation. You must set ```params.gamma_im = 0``` in this code release.
 
-```params.stft_windowing_function```: The windowing function to use for the short-time Fourier transform (STFT). You must set ```params.stft_windowing_function = @rectwin``` in this code release.
+* ```params.stft_windowing_function```: The windowing function to use for the short-time Fourier transform (STFT). You must set ```params.stft_windowing_function = @rectwin``` in this code release.
 
 #### These parameters are used to define the model space for ADMIRE in terms of the grids of possible scattering locations for the ROI and outer models. These values can be left unchanged, or they can be modified in order to change the model space sampling.
 
-```params.ROI_model_x_position_scaling_factors```: The scaling factors that are used to define the possible lateral positions of the ROI model predictors in the ```generate_models_for_stft_window_function.m``` function. The values that are already in the script are ```params.ROI_model_x_position_scaling_factors = [-0.5, 0.0179, 0.5] ```.
+* ```params.ROI_model_x_position_scaling_factors```: The scaling factors that are used to define the possible lateral positions of the ROI model predictors in the ```generate_models_for_stft_window_function.m``` function. The values that are already in the script are ```params.ROI_model_x_position_scaling_factors = [-0.5, 0.0179, 0.5] ```.
 
-```params.ROI_model_z_position_scaling_factors```: The scaling factors that are used to define the possible depth positions of the ROI model predictors in the ```generate_models_for_stft_window.m``` function. The values that are already in the script are ```params.ROI_model_z_position_scaling_factors = [-0.5, 0.1430, 0.5]```.
+* ```params.ROI_model_z_position_scaling_factors```: The scaling factors that are used to define the possible depth positions of the ROI model predictors in the ```generate_models_for_stft_window.m``` function. The values that are already in the script are ```params.ROI_model_z_position_scaling_factors = [-0.5, 0.1430, 0.5]```.
 
-```params.ROI_model_distance_offset_scaling_factor```: The scaling factor that is used to define the possible distance offsets for the ROI model predictors in the ```generate_models_for_stft_window.m``` function. The value that is already in the script is ```params.ROI_model_distance_offset_scaling_factor = [0.0485]```.
+* ```params.ROI_model_distance_offset_scaling_factor```: The scaling factor that is used to define the possible distance offsets for the ROI model predictors in the ```generate_models_for_stft_window.m``` function. The value that is already in the script is ```params.ROI_model_distance_offset_scaling_factor = [0.0485]```.
 
-```params.ROI_model_distance_offset_constants```: The constants that describe the minimum and maximum distance offsets (m) that are used for the ROI model predictors in the ```generate_models_for_stft_window.m``` function. The values that are already in the script are ```params.ROI_model_distance_offset_constants = [-0.8E-3, 0.4E-3]```.
+* ```params.ROI_model_distance_offset_constants```: The constants that describe the minimum and maximum distance offsets (m) that are used for the ROI model predictors in the ```generate_models_for_stft_window.m``` function. The values that are already in the script are ```params.ROI_model_distance_offset_constants = [-0.8E-3, 0.4E-3]```.
 
-```params.outer_model_x_position_scaling_factors```: The scaling factors that are used to define the possible lateral positions for the outer model predictors in the ```generate_models_for_stft_window.m``` function. The values that are already in the script are ```params.outer_model_x_position_scaling_factors = [-1, 1.4228, 1]```.
+* ```params.outer_model_x_position_scaling_factors```: The scaling factors that are used to define the possible lateral positions for the outer model predictors in the ```generate_models_for_stft_window.m``` function. The values that are already in the script are ```params.outer_model_x_position_scaling_factors = [-1, 1.4228, 1]```.
 
-```params.outer_model_z_position_scaling_factors```: The scaling factors that are used to define the possible depth positions of the outer model predictors in the ```generate_models_for_stft_window.m``` function. The values that are already in the script are ```params.outer_model_z_position_scaling_factors = [0, 0, 0.7114, 1, 0, 0.05]```. Note that these values mean that for a given short-time Fourier transform window, the depth range for the grid of scattering locations for the outer model will range from 0 to 1.05 times the center depth of the short-time Fourier transform window. If it is desired to generate models that focus primarily on off-axis scattering and less on reverberation, then the values can be set to ```params.outer_models_z_position_scaling_factors = [1, -0.5, 0.7114, 1, 0.5, 0]``` for example. In this case, the depth range of scattering locations is reduced, so there is a smaller depth range for modeling reverberation. However, potential benefits of this are that it can speed up the generation of the models and reduce the amount of memory required. 
+* ```params.outer_model_z_position_scaling_factors```: The scaling factors that are used to define the possible depth positions of the outer model predictors in the ```generate_models_for_stft_window.m``` function. The values that are already in the script are ```params.outer_model_z_position_scaling_factors = [0, 0, 0.7114, 1, 0, 0.05]```. Note that these values mean that for a given short-time Fourier transform window, the depth range for the grid of scattering locations for the outer model will range from 0 to 1.05 times the center depth of the short-time Fourier transform window. If it is desired to generate models that focus primarily on off-axis scattering and less on reverberation, then the values can be set to ```params.outer_models_z_position_scaling_factors = [1, -0.5, 0.7114, 1, 0.5, 0]``` for example. In this case, the depth range of scattering locations is reduced, so there is a smaller depth range for modeling reverberation. However, potential benefits of this are that it can speed up the generation of the models and reduce the amount of memory required. 
 
-```params.outer_model_distance_offset_scaling_factor```: The scaling factor that is used to define the possible distance offsets for the outer model predictors in the ```generate_models_for_stft_window.m``` function. The value that is already in the script is ```params.outer_model_distance_offset_scaling_factor = [0.1211]```.
+* ```params.outer_model_distance_offset_scaling_factor```: The scaling factor that is used to define the possible distance offsets for the outer model predictors in the ```generate_models_for_stft_window.m``` function. The value that is already in the script is ```params.outer_model_distance_offset_scaling_factor = [0.1211]```.
 
-```params.outer_model_z_position_constants```: The constant that is used to define the possible depth positions of the outer model for the predictors in the ```generate_models_for_stft_window.m``` function. The value that is already in the script is 
+* ```params.outer_model_z_position_constants```: The constant that is used to define the possible depth positions of the outer model for the predictors in the ```generate_models_for_stft_window.m``` function. The value that is already in the script is 
 ```params.outer_model_z_position_constants = [0]```.
 
-```params.outer_model_distance_offset_constants```: The constants that describe the minimum and maximum distance offsets (m) that are used for the outer model predictors in the ```generate_models_for_stft_window.m``` function. The values that are already in the script are ```params.outer_model_distance_offset_constants = [-8E-3, 3.2E-3]```.
+* ```params.outer_model_distance_offset_constants```: The constants that describe the minimum and maximum distance offsets (m) that are used for the outer model predictors in the ```generate_models_for_stft_window.m``` function. The values that are already in the script are ```params.outer_model_distance_offset_constants = [-8E-3, 3.2E-3]```.
 
 ## ADMIRE Models Application User-Defined Parameters
 Once the ADMIRE models are generated, ultrasound channel data can be processed with ADMIRE using the ```ADMIRE_models_application_main.m``` script. This script is used for offline processing of data and not real-time processing. The parameters that are user-defined for this script are described below.
 
-```apply_params.models_load_path```: The path to the directory from which the generated ADMIRE models are loaded.
+* ```apply_params.models_load_path```: The path to the directory from which the generated ADMIRE models are loaded.
 
-```apply_params.data_load_path```: The path to the directory in which the channel data is located.
+* ```apply_params.data_load_path```: The path to the directory in which the channel data is located.
 
-```apply_params.filename```: The name of the file that contains the channel data.
+* ```apply_params.filename```: The name of the file that contains the channel data.
 
-```apply_params.processed_data_save_path```: The path to the directory in which the data processed with ADMIRE is saved.
+* ```apply_params.processed_data_save_path```: The path to the directory in which the data processed with ADMIRE is saved.
 
-```apply_params.processed_data_filename```: The name of the file to which the data processed with ADMIRE is saved.
+* ```apply_params.processed_data_filename```: The name of the file to which the data processed with ADMIRE is saved.
 
-```apply_params.processor_type```: This specifies whether the channel data is processed using either the CPU implementation of ADMIRE or the GPU implementation. The two options are either ```apply_params.processor_type = 'CPU'``` or ```apply_params.processor_type = 'GPU'```.
+* ```apply_params.processor_type```: This specifies whether the channel data is processed using either the CPU implementation of ADMIRE or the GPU implementation. The two options are either ```apply_params.processor_type = 'CPU'``` or ```apply_params.processor_type = 'GPU'```.
 
-```apply_params.probe_type```: The type of transducer array that is used. The two options are either ```apply_params.probe_type = 'Linear'``` or ```apply_params.probe_type = 'Curvilinear'```.
+* ```apply_params.probe_type```: The type of transducer array that is used. The two options are either ```apply_params.probe_type = 'Linear'``` or ```apply_params.probe_type = 'Curvilinear'```.
 
-```apply_params.data_type```: This specifies the type of data that is being processed. Set ```apply_params.data_type = 'Reshaped'``` if the channel data is in the form (Depths + t0 - 1) x Elements per Beam x Beams x Frames. In this case, t0 is the sample number that corresponds to a depth of 0. If the first sample corresponds to a depth of 0, then t0 is 1. In addition, Frames corresponds to the fact that the matrix can be 4-D, where the fourth dimension indicates the frame of the channel data. ```apply_params.data_type = 'Reshaped'``` should be selected in cases such as when Field II data is being processed or if a Verasonics RF buffer that has already been reshaped is being processed. Now, the other option for this parameter is ```apply_params.data_type = 'Verasonics_RF_buffer'```, and this should be used when a raw Verasonics RF data buffer is being processed. The data in this buffer is of type int16. Moreover, it is in the form Buffer Rows x Total Elements On Transducer x Frames because on the Verasonics, all of the transducer elements are used to receive for the RF data buffer. 
+* ```apply_params.data_type```: This specifies the type of data that is being processed. Set ```apply_params.data_type = 'Reshaped'``` if the channel data is in the form (Depths + t0 - 1) x Elements per Beam x Beams x Frames. In this case, t0 is the sample number that corresponds to a depth of 0. If the first sample corresponds to a depth of 0, then t0 is 1. In addition, Frames corresponds to the fact that the matrix can be 4-D, where the fourth dimension indicates the frame of the channel data. ```apply_params.data_type = 'Reshaped'``` should be selected in cases such as when Field II data is being processed or if a Verasonics RF buffer that has already been reshaped is being processed. Now, the other option for this parameter is ```apply_params.data_type = 'Verasonics_RF_buffer'```, and this should be used when a raw Verasonics RF data buffer is being processed. The data in this buffer is of type int16. Moreover, it is in the form Buffer Rows x Total Elements On Transducer x Frames because on the Verasonics, all of the transducer elements are used to receive for the RF data buffer. 
 
-```apply_params.display_image_flag```: This flag specifies whether or not to display the log-compressed ultrasound images for each frame of channel data that is processed with ADMIRE. Set ```apply_params.display_image_flag = 0``` to not display the processed images or set ```appply_params.display_image_flag = 1``` to display the processed images.
+* ```apply_params.display_image_flag```: This flag specifies whether or not to display the log-compressed ultrasound images for each frame of channel data that is processed with ADMIRE. Set ```apply_params.display_image_flag = 0``` to not display the processed images or set ```appply_params.display_image_flag = 1``` to display the processed images.
 
-```apply_params.display_caxis_limits```: This vector specifies the caxis limits (dB) to use for displaying the processed ultrasound images with a specific dynamic range. For example, to display the processed images with a dynamic range of 60 dB, set ```apply_params.display_caxis_limits = [-60 0]```. This parameter is only used when ```apply_params.display_image_flag = 1```.
+* ```apply_params.display_caxis_limits```: This vector specifies the caxis limits (dB) to use for displaying the processed ultrasound images with a specific dynamic range. For example, to display the processed images with a dynamic range of 60 dB, set ```apply_params.display_caxis_limits = [-60 0]```. This parameter is only used when ```apply_params.display_image_flag = 1```.
 
 ## Input Data Format for Offline Processing of Data
 In order to process ultrasound channel data using the ```ADMIRE_models_application_main.m``` script, the channel data must be saved to a file. The channel data should be the only variable that is saved to the file, but the variable name does not matter. In addition, if multiple frames are acquired and the channel data is 4-D, then the script will process each frame with ADMIRE due to the fact that it checks the size of the fourth dimension and loops through each frame. Adding on, the channel data should not be time-delayed/beamformed because the ```ADMIRE_models_application_main.m``` script does this.
