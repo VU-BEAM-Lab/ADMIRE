@@ -36,7 +36,7 @@ static int num_depths;                           // Number of depth sample
 static int num_elements;                         // Number of receive elements used to obtain one beam
 static int num_beams;                            // Number of beams
 static int start_depth_offset;                   // Index of the first depth sample to which ADMIRE is applied, and one is subtracted from it in the GPU code to obtain zero-based indexing
-static int stft_num_zeros;                       // Number of zeros to use for the FFT zero padding when performing the STFT;
+static int stft_num_zeros;                       // Number of zeros to use for the FFT zero-padding when performing the STFT;
 static int stft_num_windows;                     // Number of STFT windows for one beam
 static int stft_window_shift;                    // Number of depth samples to shift by when moving to the next STFT window
 static int stft_length;                          // STFT window length without zero-padding
