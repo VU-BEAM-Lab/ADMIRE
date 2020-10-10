@@ -318,7 +318,7 @@ After the parameters are entered, we will run the script in order to generate th
 
 
 <p align="center">
-  <img src="DAS_ADMIRE_C5_2_GIF.gif" />
+  <img src="DAS_ADMIRE_C5_2_GIF.gif"/>
 </p>
 
 
