@@ -42,7 +42,7 @@ function apply_ADMIRE_models_CPU(apply_params)
         num_receive_samples = params.num_beams .* (params.num_depths + params.t0 - 1);
         channel_data = channel_data(1:num_receive_samples, :, :);
         channel_data = reshape(channel_data, [(params.num_depths + params.t0 - 1), ...
-            params.num_beams, params.total_elements_on_probe, 1]);
+            params.num_beams, params.total_elements_on_probe, size(channel_data, 3)]);
         channel_data = permute(channel_data, [1 3 2 4]);
         channel_data = channel_data(params.t0:end, :, :, :);
         
