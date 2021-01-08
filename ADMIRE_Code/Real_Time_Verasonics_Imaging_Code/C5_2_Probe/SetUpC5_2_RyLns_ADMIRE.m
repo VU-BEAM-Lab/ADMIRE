@@ -57,7 +57,7 @@ wls2mm = Resource.Parameters.speedOfSound/1000/Trans.frequency;
 
 % Specify Resources
 Resource.RcvBuffer.datatype = 'int16';
-Resource.RcvBuffer.rowsPerFrame = P.num_beams*4096;    % P.num_beams segments of 4096 samples
+Resource.RcvBuffer.rowsPerFrame = 128*ceil(P.maxAcqLength*2*4/128)*P.num_beams;
 Resource.RcvBuffer.colsPerFrame = Resource.Parameters.numRcvChannels;
 Resource.RcvBuffer.numFrames = 1;
 
@@ -127,7 +127,7 @@ Process(1).classname = 'External';
 Process(1).method = 'gpu_processing_curvilinear_probe';
 Process(1).Parameters = {'srcbuffer','receive',...
                          'srcbufnum',1,...
-                         'srcframenum',-1,...
+                         'srcframenum',1,...
                          'dstbuffer','none'};                 
 
 % Specify SeqControl structure arrays
@@ -137,7 +137,7 @@ SeqControl(1).argument = 1;
 
 % Time between acquisitions in usec
 SeqControl(2).command = 'timeToNextAcq';
-SeqControl(2).argument = 250; % 250 usec/ray * 128 = 32msec
+SeqControl(2).argument = ceil(((P.maxAcqLength*2*wls2mm/1000)/Resource.Parameters.speedOfSound)*1E6)+10;
 
 % Return to Matlab
 SeqControl(3).command = 'returnToMatlab';

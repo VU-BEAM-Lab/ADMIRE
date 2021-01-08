@@ -49,7 +49,7 @@ wls2mm = Resource.Parameters.speedOfSound/1000/Trans.frequency;
 
 % Specify Resources
 Resource.RcvBuffer(1).datatype = 'int16';
-Resource.RcvBuffer(1).rowsPerFrame = 341*4*2*P.num_beams;   % This size allows for maximum range
+Resource.RcvBuffer(1).rowsPerFrame = 128*ceil(P.maxAcqLength*2*4/128)*P.num_beams;
 Resource.RcvBuffer(1).colsPerFrame = Resource.Parameters.numRcvChannels;
 Resource.RcvBuffer(1).numFrames = P.numFrames;       
 
@@ -132,12 +132,12 @@ Process(1).classname = 'External';
 Process(1).method = 'gpu_processing_linear_probe';
 Process(1).Parameters = {'srcbuffer','receive',...
                          'srcbufnum',1,...
-                         'srcframenum',-1,...
+                         'srcframenum',1,...
                          'dstbuffer','none'};
         
 % Specify SeqControl structure arrays
 % Time between acquisitions in usec
-t1 = round(2*384*(1/Trans.frequency)); % Acquisition time in usec for max depth
+t1 = ceil(((P.maxAcqLength*2*wls2mm/1000)/Resource.Parameters.speedOfSound)*1E6)+10;
 SeqControl(1).command = 'timeToNextAcq';
 SeqControl(1).argument = t1;
 

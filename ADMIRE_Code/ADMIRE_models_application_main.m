@@ -28,7 +28,7 @@ clear all; close all;
 apply_params.models_load_path = 'enter path here';  % Path to the directory from which the generated ADMIRE models are loaded
 apply_params.data_load_path = 'enter path here';  % Path to the directory in which the channel data is located
 apply_params.filename = 'channel_data_for_ADMIRE.mat';  % Name of the file that contains the channel data
-apply_params.processed_data_save_path = 'enter path here'; %C:\Users\chris\OneDrive\Documents\MATLAB\TACE_Grant_Data\Blocked_Out_Elements_Study\New_Data_Left_Right_Zeroing\ADMIRE_Output_Data';  % Path to the directory in which the data processed with ADMIRE is saved
+apply_params.processed_data_save_path = 'enter path here'; % Path to the directory in which the data processed with ADMIRE is saved
 apply_params.processed_data_filename = 'ADMIRE_processed_data.mat';  % Name of the file to which the data processed with ADMIRE is saved
 apply_params.processor_type = 'GPU';  % Specify whether the CPU implementation of ADMIRE or the GPU implementation will be used: Specify either 'CPU' or 'GPU' 
 apply_params.probe_type = 'Linear';  % Type of transducer array used: Specify either 'Linear' or 'Curvilinear'

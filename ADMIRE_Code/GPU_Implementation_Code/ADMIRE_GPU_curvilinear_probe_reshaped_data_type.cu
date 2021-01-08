@@ -70,6 +70,7 @@ static float * y_d;                           // Stores the standardized STFT da
 static float * cropped_y_d;                   // Stores the cropped y data that results from applying aperture growth
 static float * residual_y_d;                  // Stores the residual values that are obtained during each fit
 static float * y_include_mask_d;              // Stores the binary flag (0 or 1) that indicates whether to crop a y value or not
+static double * start_ind_d;                  // Stores the index for the first location where there is a 1 in each aperture growth binary mask         
 static float * y_std_d;                       // Stores the standard deviations for each portion of the y_d array (one portion corresponds to one elastic net regression fit)
 static float * standardized_lambda_d;         // Stores the standardized lambda values for each portion of the y_d array (one portion corresponds to one elastic net regression fit)
 static double * num_observations_d;           // Stores the number of observations for each fit after cropping the y data
@@ -149,6 +150,7 @@ cudaFree(y_d);
 cudaFree(cropped_y_d);
 cudaFree(residual_y_d);
 cudaFree(y_include_mask_d);
+cudaFree(start_ind_d);
 cudaFree(y_std_d);
 cudaFree(standardized_lambda_d);
 cudaFree(num_observations_d);
@@ -272,6 +274,7 @@ if (!initialized) {
    cudaMalloc(&cropped_y_d, total_num_cropped_y_observations * sizeof(float));
    cudaMalloc(&residual_y_d, total_num_cropped_y_observations * sizeof(float));
    cudaMalloc(&y_include_mask_d, 2 * num_elements * num_selected_freqs * stft_num_windows * num_beams * sizeof(float));
+   cudaMalloc(&start_ind_d, num_fits * sizeof(double));   
    cudaMalloc(&y_std_d, num_fits * sizeof(float));
    cudaMalloc(&standardized_lambda_d, num_fits * sizeof(float));
    cudaMalloc(&num_observations_d, num_fits * sizeof(double));
@@ -427,7 +430,7 @@ cufftExecC2C(FFTplan1, stft_d, stft_d, CUFFT_FORWARD);
 
 // Define the grid and block dimensions for the frequency_selection GPU kernel
 dim3 FREQUENCY_SELECTION_GRID_SIZE;
-FREQUENCY_SELECTION_GRID_SIZE = dim3(stft_num_windows, num_beams, 1);
+FREQUENCY_SELECTION_GRID_SIZE = dim3(num_selected_freqs, stft_num_windows, num_beams);
 dim3 FREQUENCY_SELECTION_BLOCK_SIZE;
 FREQUENCY_SELECTION_BLOCK_SIZE = dim3(num_elements, 1, 1);
 
@@ -453,7 +456,7 @@ dim3 MODEL_FIT_PREPARATION_GRID_SIZE;
 MODEL_FIT_PREPARATION_GRID_SIZE = dim3(num_blocks, 1, 1);
 dim3 MODEL_FIT_PREPARATION_BLOCK_SIZE;
 MODEL_FIT_PREPARATION_BLOCK_SIZE = dim3(num_threads_per_block, 1, 1);
-model_fit_preparation<<<MODEL_FIT_PREPARATION_GRID_SIZE, MODEL_FIT_PREPARATION_BLOCK_SIZE>>>(cropped_y_d, model_fit_flag_d, y_d, residual_y_d, y_include_mask_d, y_std_d, standardized_lambda_d, num_observations_d, observation_thread_stride_d, lambda_scaling_factor, num_elements, num_threads_per_block, num_blocks, num_threads_last_block);
+model_fit_preparation<<<MODEL_FIT_PREPARATION_GRID_SIZE, MODEL_FIT_PREPARATION_BLOCK_SIZE, num_threads_per_block * 2 * num_elements * sizeof(float)>>>(cropped_y_d, model_fit_flag_d, y_d, residual_y_d, y_include_mask_d, start_ind_d, y_std_d, standardized_lambda_d, num_observations_d, observation_thread_stride_d, lambda_scaling_factor, num_elements, num_threads_per_block, num_blocks, num_threads_last_block);
 
 // Calculate the number of blocks that are required to perform the model fits for all of the beams for one frequency and one STFT window depth range
 int num_beam_blocks = (int)ceilf((float)num_beams / (float)num_threads_per_block);
@@ -485,12 +488,12 @@ cudaMemset(stft_d, 0, stft_num_windows * num_elements * num_beams * (stft_length
 
 // Define the grid and block dimensions for the inverse_stft_preparation GPU kernel
 dim3 ISTFT_PREPARATION_GRID_SIZE;
-ISTFT_PREPARATION_GRID_SIZE = dim3(stft_num_windows, 1, 1);
+ISTFT_PREPARATION_GRID_SIZE = dim3(num_selected_freqs, stft_num_windows, num_beams);
 dim3 ISTFT_PREPARATION_BLOCK_SIZE;
-ISTFT_PREPARATION_BLOCK_SIZE = dim3(num_beams, 1, 1);
+ISTFT_PREPARATION_BLOCK_SIZE = dim3(num_elements, 1, 1);
 
 // Call the inverse_stft_preparation GPU kernel in order to place the reconstructed STFT data back into the stft_d array
-inverse_stft_preparation<<<ISTFT_PREPARATION_GRID_SIZE, ISTFT_PREPARATION_BLOCK_SIZE>>>(cropped_y_d, selected_freq_inds_d, negative_freq_inds_d, negative_freq_include_d, stft_d, observation_thread_stride_d, y_include_mask_d, stft_length, stft_num_zeros, stft_num_windows, num_selected_freqs, num_elements);
+inverse_stft_preparation<<<ISTFT_PREPARATION_GRID_SIZE, ISTFT_PREPARATION_BLOCK_SIZE>>>(cropped_y_d, selected_freq_inds_d, negative_freq_inds_d, negative_freq_include_d, stft_d, observation_thread_stride_d, y_include_mask_d, start_ind_d, num_observations_d, stft_length, stft_num_zeros, stft_num_windows, num_selected_freqs, num_elements);
 
 // Calculates the inverse short-time Fourier transform (the window overlap is assumed to be 0 for GPU execution, so the inverse fast fourier transform along each column of each STFT window just needs to be calculated in order to obtain the inverse short-time Fourier transform)
 cufftExecC2C(FFTplan1, stft_d, stft_d, CUFFT_INVERSE);
@@ -504,12 +507,12 @@ cufftExecC2C(FFTplan1, stft_d, stft_d, CUFFT_INVERSE);
 
 // Define the grid and block dimensions for the stft_data_array_to_delayed_data_array GPU kernel
 dim3 TRANSFER_GRID_SIZE;
-TRANSFER_GRID_SIZE = dim3(stft_num_windows, num_beams, 1);
+TRANSFER_GRID_SIZE = dim3(stft_length, stft_num_windows, num_beams);
 dim3 TRANSFER_BLOCK_SIZE;
 TRANSFER_BLOCK_SIZE = dim3(num_elements, 1, 1);
 
 // Call the stft_data_array_to_delayed_data_array GPU kernel in order to remove the STFT zero-padding and to store the reconstructed channel data back into the delayed_data_d array
-stft_data_array_to_delayed_data_array<<<TRANSFER_GRID_SIZE, TRANSFER_BLOCK_SIZE>>>(delayed_data_d, stft_d, stft_num_windows, stft_length, stft_num_zeros, num_depths, num_elements, start_depth_offset);
+stft_data_array_to_delayed_data_array<<<TRANSFER_GRID_SIZE, TRANSFER_BLOCK_SIZE>>>(delayed_data_d, stft_d, stft_num_windows, stft_length, stft_num_zeros, num_depths, num_elements, start_depth_offset);   
 
 //// END OF ZERO-PADDING REMOVAL SECTION ////
 

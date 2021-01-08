@@ -289,31 +289,29 @@ if (window_ind < num_windows_per_set_2) {
 // Define the GPU kernel that obtains the frequency data corresponding to the selected frequencies for ADMIRE
 __global__ void frequency_selection(float * y_d, float * selected_freq_inds_d, cufftComplex * stft_d, int stft_length, int stft_num_zeros, int stft_num_windows, int num_selected_freqs, int num_elements) {
 
-// Obtain the element, beam, and window indices
+// Obtain the element, window, and beam indices along with the frequency number
 int elem_ind = threadIdx.x;
-int beam_ind = blockIdx.y;
-int window_ind = blockIdx.x;
+int freq_num = blockIdx.x;
+int window_ind = blockIdx.y;
+int beam_ind = blockIdx.z;
 
 // Calculate the stride to move to the correct position of the stft_d array
 int stride = (beam_ind * num_elements * stft_num_windows * (stft_length + stft_num_zeros)) + (elem_ind * stft_num_windows * (stft_length + stft_num_zeros)) + (window_ind * (stft_length + stft_num_zeros));
 
-// Loop through the selected frequencies
-for (int i = 0; i < num_selected_freqs; i++) {
-    // Obtain the index of the window sample that corresponds to the frequency
-    int freq_ind = (int)selected_freq_inds_d[i];
+// Obtain the index of the window sample that corresponds to the frequency
+int freq_ind = (int)selected_freq_inds_d[freq_num];
 
-    // Calculate the index to store the real component of the STFT data into the y_d array
-    int store_ind_real = (beam_ind * stft_num_windows * num_selected_freqs * 2 * num_elements) + (window_ind * num_selected_freqs * 2 * num_elements) + (i * 2 * num_elements) + elem_ind;
+// Calculate the index to store the real component of the STFT data into the y_d array
+int store_ind_real = (beam_ind * stft_num_windows * num_selected_freqs * 2 * num_elements) + (window_ind * num_selected_freqs * 2 * num_elements) + (freq_num * 2 * num_elements) + elem_ind;
 
-    // Calculate the index to store the imaginary component of the STFT data into the y_d array
-    int store_ind_imaginary = (beam_ind * stft_num_windows * num_selected_freqs * 2 * num_elements) + (window_ind * num_selected_freqs * 2 * num_elements) + (i * 2 * num_elements) + num_elements + elem_ind;
+// Calculate the index to store the imaginary component of the STFT data into the y_d array
+int store_ind_imaginary = (beam_ind * stft_num_windows * num_selected_freqs * 2 * num_elements) + (window_ind * num_selected_freqs * 2 * num_elements) + (freq_num * 2 * num_elements) + num_elements + elem_ind;
 
-    // Access and store the real component of the STFT data into the y_d array
-    y_d[store_ind_real] = stft_d[freq_ind + stride].x;
+// Access and store the real component of the STFT data into the y_d array
+y_d[store_ind_real] = stft_d[freq_ind + stride].x;
 
-    // Access and store the imaginary component of the STFT data into the y_d array
-    y_d[store_ind_imaginary] = stft_d[freq_ind + stride].y;
-} 
+// Access and store the imaginary component of the STFT data into the y_d array
+y_d[store_ind_imaginary] = stft_d[freq_ind + stride].y;
 
 }
 
@@ -321,7 +319,10 @@ for (int i = 0; i < num_selected_freqs; i++) {
 
 
 // Define the GPU kernel that calculates the standard deviations for each portion of the y_d array, standardizes the y_d array, and calculates the standardized lambda values
-__global__ void model_fit_preparation(float * cropped_y_d, float * model_fit_flag_d, float * y_d, float * residual_y_d, float * y_include_mask_d, float * y_std_d, float * standardized_lambda_d, double * num_observations_d, double * observation_thread_stride_d, float lambda_scaling_factor, int num_elements, int num_threads_per_block, int num_blocks, int num_threads_last_block) {
+__global__ void model_fit_preparation(float * cropped_y_d, float * model_fit_flag_d, float * y_d, float * residual_y_d, float * y_include_mask_d, double * start_ind_d, float * y_std_d, float * standardized_lambda_d, double * num_observations_d, double * observation_thread_stride_d, float lambda_scaling_factor, int num_elements, int num_threads_per_block, int num_blocks, int num_threads_last_block) {
+
+// Define the shared memory array to store the aperture domain frequency data for the fits within one block (the amount of bytes is declared in the GPU kernel call)
+extern __shared__ float sdata[];
 
 // Obtain the index of the block
 int block_ind = blockIdx.x;
@@ -363,12 +364,17 @@ if (block_thread_ind < num_threads_per_block_2) {
        // Declare the variable to determine whether an observation is included or not due to aperture growth
        int include_flag = (int)y_include_mask_d[observation + (fit_ind * no_aperture_growth_num_observations)];
        
-       // Store the selected y value into the cropped_y_d array
+       // Store the selected y value into shared memory
        if (include_flag == 1) {
           float value = y_d[observation + (fit_ind * no_aperture_growth_num_observations)];
           sum_value += value;
           y_dot_product_value += (value * value);
-          cropped_y_d[observation_thread_stride + count] = value;
+          sdata[(count * num_threads_per_block) + block_thread_ind] = value;
+
+          // Store the index of the first location where the binary aperture growth mask has a 1 for the fit
+          if (count == 0) {
+             start_ind_d[fit_ind] = (double)observation;
+          }
           count = count + 1;
        }
    }
@@ -381,7 +387,7 @@ if (block_thread_ind < num_threads_per_block_2) {
 
    // Calculate the standard deviation of y for the fit
    for (int observation = 0; observation < num_observations; observation++) {
-       float value_2 = cropped_y_d[observation_thread_stride + observation];
+       float value_2 = sdata[(observation * num_threads_per_block) + block_thread_ind];
        std += ((value_2 - mean) * (value_2 - mean));
    }
    std = sqrtf(std / (float)num_observations);
@@ -399,14 +405,12 @@ if (block_thread_ind < num_threads_per_block_2) {
 
       // Standardize y for the fit and store it into the cropped_y_d array and the residual_y_d array
       for (int observation = 0; observation < num_observations; observation++) {
-          float standardized_value = cropped_y_d[observation_thread_stride + observation] / std;
-          cropped_y_d[observation_thread_stride + observation] = standardized_value;
-          residual_y_d[observation_thread_stride + observation] = standardized_value;
+          residual_y_d[observation_thread_stride + observation] = sdata[(observation * num_threads_per_block) + block_thread_ind] / std;
       }
    }
 }
 
-} 
+}  
 
 
 
@@ -569,21 +573,25 @@ if (beam_ind < num_beams) {
       }
    }
 
-  
+   // Store 0 into the relevant entries of the shared memory array in order to use it for storing the reconstructed aperture domain frequency data instead of the residual values
+   for (int observation_row = 0; observation_row < num_observations; observation_row++) {
+       sdata[(observation_row * num_threads_per_block) + block_thread_ind] = 0.0f;          
+   }
+
    // Reconstruct y using only the estimated predictor coefficient values that correspond to the ROI 
    // The ROI predictors are in the first fourth and third fourth of the each ADMIRE model matrix because the real and complex components are tiled 
-   for (int observation_row = 0; observation_row < num_observations; observation_row++) {
-       // Declare and initialize the variable that stores the reconstructed signal value for the current observation
-       float reconstructed_y = 0.0f;
-       
-       // Reconstruct the signal value for the current observation by doing X_ROI * B_ROI
-       for (int predictor_column = 0; predictor_column < ((int)(num_predictors / 4)); predictor_column++) {
-           int predictor_column_2 = predictor_column + ((int)(num_predictors / 2));
-           reconstructed_y = reconstructed_y + (X_matrix_d[X_thread_stride + (predictor_column * num_observations) + observation_row] * B_d[predictor_thread_stride + predictor_column]) + (X_matrix_d[X_thread_stride + (predictor_column_2 * num_observations) + observation_row] * B_d[predictor_thread_stride + predictor_column_2]);
+   // These two nested for loops are doing X_ROI * B_ROI
+   for (int predictor_column = 0; predictor_column < ((int)(num_predictors / 4)); predictor_column++) {
+       int predictor_column_2 = predictor_column + ((int)(num_predictors / 2));
+       for (int observation_row = 0; observation_row < num_observations; observation_row++) {
+           int store_ind = (observation_row * num_threads_per_block) + block_thread_ind;
+           sdata[store_ind] = sdata[store_ind] + (X_matrix_d[X_thread_stride + (predictor_column * num_observations) + observation_row] * B_d[predictor_thread_stride + predictor_column]) + (X_matrix_d[X_thread_stride + (predictor_column_2 * num_observations) + observation_row] * B_d[predictor_thread_stride + predictor_column_2]);
        }
+   }
 
-       // Store the reconstructed value of y in the cropped_y_d array
-       cropped_y_d[observation_thread_stride + observation_row] = reconstructed_y;
+   // Store the reconstructed value of y in the cropped_y_d array
+   for (int observation_row = 0; observation_row < num_observations; observation_row++) {
+       cropped_y_d[observation_thread_stride + observation_row] = sdata[(observation_row * num_threads_per_block) + block_thread_ind];   
    }
 }
 
@@ -593,113 +601,89 @@ if (beam_ind < num_beams) {
 
 
 // Define the GPU kernel that places the reconstructed STFT data back into the stft_d array
-__global__ void inverse_stft_preparation(float * cropped_y_d, float * selected_freq_inds_d, float * negative_freq_inds_d, float * negative_freq_include_d, cufftComplex * stft_d, double * observation_thread_stride_d, float * y_include_mask_d, int stft_length, int stft_num_zeros, int stft_num_windows, int num_selected_freqs, int num_elements) {
+__global__ void inverse_stft_preparation(float * cropped_y_d, float * selected_freq_inds_d, float * negative_freq_inds_d, float * negative_freq_include_d, cufftComplex * stft_d, double * observation_thread_stride_d, float * y_include_mask_d, double * start_ind_d, double * num_observations_d, int stft_length, int stft_num_zeros, int stft_num_windows, int num_selected_freqs, int num_elements) {
 
-// Obtain the window and beam indices
-int window_ind = blockIdx.x;
-int beam_ind = threadIdx.x;
+// Obtain the element, window, and beam indices along with the frequency number
+int freq_num = blockIdx.x;        
+int window_ind = blockIdx.y;
+int beam_ind = blockIdx.z;
+int elem_ind = threadIdx.x;
 
 // Calculate the number of observations that each fit would have if aperture growth was not applied
 int no_aperture_growth_num_observations = 2 * num_elements;
 
-// Declare and initialize the variable that stores the counter for accessing the negative frequency indices
-int negative_freq_count = 0;
+// Calculate the fit index
+int fit_ind = (beam_ind * stft_num_windows * num_selected_freqs) + (window_ind * num_selected_freqs) + freq_num;
 
-// Loop through the selected frequencies
-for (int i = 0; i < num_selected_freqs; i++) {
-    // Calculate the fit index
-    int fit_ind = (beam_ind * stft_num_windows * num_selected_freqs) + (window_ind * num_selected_freqs) + i;
+// Obtain the index of the first location in the binary aperture growth mask that contains a 1 for the fit
+int start_ind = (int)start_ind_d[fit_ind];
 
-    // Obtain the thread stride that is used to obtain the correct set of observations from the cropped_y_d array for the fit
-    int observation_thread_stride = (int)observation_thread_stride_d[fit_ind];
+// Obtain the number of observations for the fit
+int num_observations = (int)num_observations_d[fit_ind];
 
-    // Obtain the index of the window sample that corresponds to the frequency
-    int freq_ind = (int)selected_freq_inds_d[i];
+// Calculate the number of observations divided by 2 for the fit
+int half_num_observations = (int)(num_observations / 2);
 
-    // Declare and initialize the variable that is used to access the correct value in the cropped_y_d array
-    int count = 0;
+// Obtain the thread stride that is used to obtain the correct set of observations from the cropped_y_d array for the fit
+int observation_thread_stride = (int)observation_thread_stride_d[fit_ind];
 
-    // Obtain the negative frequency flag value to determine if the current frequency has a corresponding negative frequency 
-    // This is for storing the conjugate of the positive frequency reconstructed signal for the negative frequency
-    int negative_freq_flag = (int)negative_freq_include_d[i];
+// Obtain the index of the window sample that corresponds to the frequency
+int freq_ind = (int)selected_freq_inds_d[freq_num];
 
-    // Handle the case where there is a corresponding negative frequency
-    if (negative_freq_flag == 1) {
-       // Obtain the index of the window sample that corresponds to the negative frequency
-       int negative_freq_ind = (int)negative_freq_inds_d[negative_freq_count];
+// Obtain the negative frequency flag value to determine if the current frequency has a corresponding negative frequency 
+// This is for storing the conjugate of the positive frequency's reconstructed signal for the negative frequency
+int negative_freq_flag = (int)negative_freq_include_d[freq_num];
 
-       // Update the counter that is used for accessing the negative frequency indices
-       negative_freq_count = negative_freq_count + 1;
+// Obtain the negative frequency flag for the first frequency in order to determine whether the first frequency is 0 or not
+int first_freq_flag = (int)negative_freq_include_d[0];
 
-       // Store each cropped_y_d real value into the correct position in the stft_d array
-       for (int observation = 0; observation < num_elements; observation++) {
-           // Calculate the stride to move to the correct position of the stft_d array
-           int stride = (beam_ind * num_elements * stft_num_windows * (stft_length + stft_num_zeros)) + (observation * stft_num_windows * (stft_length + stft_num_zeros)) + (window_ind * (stft_length + stft_num_zeros));
+// Initialize the variable that stores index of the window sample that corresponds to the negative frequency
+// This variable is not used if the current frequency is 0 because 0 does not have a corresponding negative frequency
+int negative_freq_ind = 0;
+
+// Handle the case where there is a corresponding negative frequency
+if (negative_freq_flag == 1) {
+   // This if statement accounts for the fact that the first frequency that is fit might be 0 instead of a positive frequency that has a corresponding negative frequency
+   if (first_freq_flag == 1) {
+      // Obtain the index of the window sample that corresponds to the negative frequency
+      negative_freq_ind = (int)negative_freq_inds_d[freq_num];
+   } else {
+      // Obtain the index of the window sample that corresponds to the negative frequency
+      negative_freq_ind = (int)negative_freq_inds_d[freq_num - 1];   
+   }
+
+   // Calculate the stride to move to the correct position of the stft_d array
+   int stride = (beam_ind * num_elements * stft_num_windows * (stft_length + stft_num_zeros)) + (elem_ind * stft_num_windows * (stft_length + stft_num_zeros)) + (window_ind * (stft_length + stft_num_zeros));
  
-           // Obtain the include flag value to determine whether an observation is included or not due to aperture growth
-           int include_flag = (int)y_include_mask_d[(fit_ind * no_aperture_growth_num_observations) + observation];
+   // Obtain the include flag value to determine whether an observation is included or not due to aperture growth
+   int include_flag = (int)y_include_mask_d[(fit_ind * no_aperture_growth_num_observations) + elem_ind];
 
-           // Store the real component of the reconstructed signal into the stft_d array (also store it for the negative frequency)
-           if (include_flag == 1) {
-              float value = cropped_y_d[observation_thread_stride + count];
-              stft_d[stride + freq_ind].x = value;
-              stft_d[stride + negative_freq_ind].x = value;
-              count = count + 1;
-           }
-       }
-
-       // Store each cropped_y_d imaginary value into the correct position in the stft_d array      
-       for (int observation = num_elements; observation < no_aperture_growth_num_observations; observation++) {
-           // Calculate the stride to move to the correct position of the stft_d array
-           int stride = (beam_ind * num_elements * stft_num_windows * (stft_length + stft_num_zeros)) + ((observation - num_elements) * stft_num_windows * (stft_length + stft_num_zeros)) + (window_ind * (stft_length + stft_num_zeros));
-  
-           // Obtain the include flag value to determine whether an observation is included or not due to aperture growth
-           int include_flag = (int)y_include_mask_d[(fit_ind * no_aperture_growth_num_observations) + observation];
-
-           // Store the imaginary component of the reconstructed signal into the stft_d array (also store the conjugate for the negative frequency)
-           if (include_flag == 1) {
-              float value_2 = cropped_y_d[observation_thread_stride + count];
-              stft_d[stride + freq_ind].y = value_2;
-              stft_d[stride + negative_freq_ind].y = -1.0f * value_2;
-              count = count + 1;
-           }
-       }
+   // Store the real and the imaginary components of the reconstructed signal into the stft_d array (also store the conjugate for the corresponding negative frequency)
+   if (include_flag == 1) {
+      float value = cropped_y_d[observation_thread_stride + elem_ind - start_ind];
+      float value_2 = cropped_y_d[observation_thread_stride + half_num_observations + elem_ind - start_ind];
+      stft_d[stride + freq_ind].x = value;
+      stft_d[stride + freq_ind].y = value_2;
+      stft_d[stride + negative_freq_ind].x = value;
+      stft_d[stride + negative_freq_ind].y = -1.0f * value_2;
+   }
        
-    } else {
-      // Handle the case where there isn't a corresponding negative frequency
-      // Store each cropped_y_d real value into the correct position in the stft_d array
-      for (int observation = 0; observation < num_elements; observation++) {
-          // Calculate the stride to move to the correct position of the stft_d array
-          int stride = (beam_ind * num_elements * stft_num_windows * (stft_length + stft_num_zeros)) + (observation * stft_num_windows * (stft_length + stft_num_zeros)) + (window_ind * (stft_length + stft_num_zeros));
+} else {
+   // Handle the case where there isn't a corresponding negative frequency
+   // Calculate the stride to move to the correct position of the stft_d array
+   int stride = (beam_ind * num_elements * stft_num_windows * (stft_length + stft_num_zeros)) + (elem_ind * stft_num_windows * (stft_length + stft_num_zeros)) + (window_ind * (stft_length + stft_num_zeros));
 
-          // Obtain the include flag value to determine whether an observation is included or not due to aperture growth
-          int include_flag = (int)y_include_mask_d[(fit_ind * no_aperture_growth_num_observations) + observation];
+   // Obtain the include flag value to determine whether an observation is included or not due to aperture growth
+   int include_flag = (int)y_include_mask_d[(fit_ind * no_aperture_growth_num_observations) + elem_ind];
 
-          // Store the real component of the reconstructed signal into the stft_d array
-          if (include_flag == 1) {
-             stft_d[stride + freq_ind].x = cropped_y_d[observation_thread_stride + count];
-             count = count + 1;
-          }
-      }
+   // Store the real and imaginary components of the reconstructed signal into the stft_d array
+   if (include_flag == 1) {
+      stft_d[stride + freq_ind].x = cropped_y_d[observation_thread_stride + elem_ind - start_ind];
+      stft_d[stride + freq_ind].y = cropped_y_d[observation_thread_stride + half_num_observations + elem_ind - start_ind];
+   }
+} 
 
-      // Store each cropped_y_d imaginary value into the correct position in the stft_d array      
-      for (int observation = num_elements; observation < no_aperture_growth_num_observations; observation++) {
-          // Calculate the stride to move to the correct position of the stft_d array
-          int stride = (beam_ind * num_elements * stft_num_windows * (stft_length + stft_num_zeros)) + ((observation - num_elements) * stft_num_windows * (stft_length + stft_num_zeros)) + (window_ind * (stft_length + stft_num_zeros));
-          
-          // Obtain the include flag value to determine whether an observation is included or not due to aperture growth
-          int include_flag = (int)y_include_mask_d[(fit_ind * no_aperture_growth_num_observations) + observation];
-
-          // Store the imaginary component of the reconstructed signal into the stft_d array
-          if (include_flag == 1) {
-             stft_d[stride + freq_ind].y = cropped_y_d[observation_thread_stride + count];
-             count = count + 1;
-          }
-      }
-    } 
-}
-
-}
+} 
 
 
 
@@ -708,25 +692,23 @@ for (int i = 0; i < num_selected_freqs; i++) {
 __global__ void stft_data_array_to_delayed_data_array(float * delayed_data_d, cufftComplex * stft_d, int stft_num_windows, int stft_length, int stft_num_zeros, int num_depths, int num_elements, int start_depth_offset) {
 
 // Obtain the window, beam, and element indices
-int window_ind = blockIdx.x;
-int beam_ind = blockIdx.y;
+int window_sample_ind = blockIdx.x;
+int window_ind = blockIdx.y;
+int beam_ind = blockIdx.z;
 int elem_ind = threadIdx.x;
 
 // Calculate the stride to move to the correct position of the stft_d array
 int stride = (beam_ind * num_elements * stft_num_windows * (stft_length + stft_num_zeros)) + (elem_ind * stft_num_windows * (stft_length + stft_num_zeros)) + (window_ind * (stft_length + stft_num_zeros));
 
-// Loop through and obtain all of the window samples that don't correpsond to zero-padding
-for (int i = 0; i < stft_length; i++) { 
-    // Calculate the depth index
-    int depth_ind = (window_ind * stft_length) + i + (start_depth_offset - 1);
+// Calculate the depth index
+int depth_ind = (window_ind * stft_length) + window_sample_ind + (start_depth_offset - 1);
 
-    // Obtain the index to store the data into the delayed_data_d array
-    int store_ind = (beam_ind * num_elements * num_depths) + (elem_ind * num_depths) + depth_ind;
+// Obtain the index to store the data into the delayed_data_d array
+int store_ind = (beam_ind * num_elements * num_depths) + (elem_ind * num_depths) + depth_ind;
 
-    // Divide the real component of the data sample from the stft_d array by the inverse fast Fourier transform length to account for the inverse fast Fourier transform normalization factor
-    // Store the scaled real component into the delayed_data_d array
-    delayed_data_d[store_ind] = stft_d[stride + i].x / ((float)(stft_length + stft_num_zeros));
-}
+// Divide the real component of the data sample from the stft_d array by the inverse fast Fourier transform length to account for the inverse fast Fourier transform normalization factor
+// Store the scaled real component into the delayed_data_d array
+delayed_data_d[store_ind] = stft_d[stride + window_sample_ind].x / ((float)(stft_length + stft_num_zeros));
 
 }  
 
