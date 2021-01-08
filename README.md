@@ -40,19 +40,19 @@ In order to utilize the GPU implementation of ADMIRE, a CUDA-capable NVIDIA GPU 
 Before compiling the code, you should first check to see that MATLAB recognizes your GPU card. To do so, go to the command prompt and type ```gpuDevice```. If successful, the properties of the GPU will be displayed. If an error is returned, then possible causes will most likely be related to the graphics driver or the toolkit version that is installed. Once the GPU is recognized, the next step is to compile the files that contain the C/CUDA code into MEX-files. Assuming the code repository is already on your system, go to the MATLAB directory that contains the repository folders and add them to your MATLAB path. Following this, go to the ```GPU_Code``` folder. For Windows OS, type the following commands into the MATLAB command prompt.
 
 ```Matlab
-mexcuda ADMIRE_GPU_curvilinear_probe_reshaped_data_type.cu -lcufft
-mexcuda ADMIRE_GPU_curvilinear_probe_verasonics_RF_buffer_data_type.cu -lcufft
-mexcuda ADMIRE_GPU_linear_probe_reshaped_data_type.cu -lcufft
-mexcuda ADMIRE_GPU_linear_probe_Verasonics_RF_buffer_data_type.cu -lcufft
+mexcuda('ADMIRE_GPU_curvilinear_probe_reshaped_data_type.cu', '-lcufft', 'NVCC_FLAGS=-Xptxas -dlcm=ca')
+mexcuda('ADMIRE_GPU_curvilinear_probe_verasonics_RF_buffer_data_type.cu', '-lcufft', 'NVCC_FLAGS=-Xptxas -dlcm=ca')
+mexcuda('ADMIRE_GPU_linear_probe_reshaped_data_type.cu', '-lcufft', 'NVCC_FLAGS=-Xptxas -dlcm=ca')
+mexcuda('ADMIRE_GPU_linear_probe_Verasonics_RF_buffer_data_type.cu', '-lcufft', 'NVCC_FLAGS=-Xptxas -dlcm=ca')
 ```
 
 The same commands can be used for Linux OS, but the path to the CUDA toolkit library must also be included. This is illustrated by the following commands. Note that mexcuda might find the CUDA toolkit library even if you do not explicitly type out its path.
 
 ```Matlab
-mexcuda ADMIRE_GPU_curvilinear_probe_reshaped_data_type.cu -L/usr/local/cuda-10.0/lib64 -lcufft
-mexcuda ADMIRE_GPU_curvilinear_probe_verasonics_RF_buffer_data_type.cu -L/usr/local/cuda-10.0/lib64 -lcufft
-mexcuda ADMIRE_GPU_linear_probe_reshaped_data_type.cu -L/usr/local/cuda-10.0/lib64 -lcufft
-mexcuda ADMIRE_GPU_linear_probe_Verasonics_RF_buffer_data_type.cu -L/usr/local/cuda-10.0/lib64 -lcufft
+mexcuda('ADMIRE_GPU_curvilinear_probe_reshaped_data_type.cu', '-L/usr/local/cuda-10.0/lib64', '-lcufft', 'NVCC_FLAGS=-Xptxas -dlcm=ca')
+mexcuda('ADMIRE_GPU_curvilinear_probe_verasonics_RF_buffer_data_type.cu', '-L/usr/local/cuda-10.0/lib64', '-lcufft', 'NVCC_FLAGS=-Xptxas -dlcm=ca')
+mexcuda('ADMIRE_GPU_linear_probe_reshaped_data_type.cu', '-L/usr/local/cuda-10.0/lib64', '-lcufft', 'NVCC_FLAGS=-Xptxas -dlcm=ca')
+mexcuda('ADMIRE_GPU_linear_probe_Verasonics_RF_buffer_data_type.cu', '-L/usr/local/cuda-10.0/lib64', '-lcufft', 'NVCC_FLAGS=-Xptxas -dlcm=ca')
 ```
 Note that there might be differences in your path compared to the one shown above, such as in regards to the version of the CUDA toolkit that is being used. In addition, if desired, the ```-v``` flag can be included at the end of each mexcuda command to display compilation details. If the compilation process is successful, then it will display a success message for each compilation in the command prompt. In addition, a MEX-file should appear after each mexcuda call. The compilation process is important, and it is recommended to recompile any time a different release of MATLAB is utilized.
 
