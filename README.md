@@ -122,7 +122,7 @@ In order to apply ADMIRE to ultrasound channel data, the models that ADMIRE uses
 
 * ```params.alpha```: The ![alpha](https://latex.codecogs.com/svg.latex?%5Calpha) value that is used to weight the L1-regularization and L2-regularization terms in elastic-net regularization. The range for this value is [0, 1], and a typical value is ```params.alpha = 0.9```.
 
-* ```params.lambda_scaling_factor```: The scaling factor that is used in the calculation of ![lambda]https://latex.codecogs.com/svg.latex?%5Cinline%20%5Clambda, which is used in elastic-net regularization. This is the same as ![c_lambda](https://latex.codecogs.com/svg.latex?c_%7B%5Clambda%7D), and a typical value is ```params.lambda_scaling_factor = 0.0189```.
+* ```params.lambda_scaling_factor```: The scaling factor that is used in the calculation of ![lambda](https://latex.codecogs.com/svg.latex?%5Cinline%20%5Clambda), which is used in elastic-net regularization. This is the same as ![c_lambda](https://latex.codecogs.com/svg.latex?c_%7B%5Clambda%7D), and a typical value is ```params.lambda_scaling_factor = 0.0189```.
 
 * ```params.max_iterations```: The maximum number of iterations of cyclic coordinate descent to perform. If this number of iterations is reached, then cyclic coordinate descent will stop. A typical value is ```params.max_iterations = 100000```.
 
