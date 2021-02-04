@@ -418,7 +418,7 @@ Please include the following citations to cite this repository in publications.
   	bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 ```
-Please also cite this paper, which is currently in press and can be found at https://ieeexplore.ieee.org/document/9344672.
+Please also cite the paper "A Real-Time, GPU-Based Implementation of Aperture Domain Model Image REconstruction", which is currently in press and can be found at https://ieeexplore.ieee.org/document/9344672.
 
 ## Contact Information
 If you have questions, suggestions, or bugs to report, please use the Issues section of this repository or contact Christopher Khan (christopher.m.khan@vanderbilt.edu).
