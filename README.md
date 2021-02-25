@@ -61,7 +61,7 @@ In addition, if desired, the ```-v``` flag can be included at the end of the mex
 
 ```Matlab
 mexcuda('ADMIRE_GPU_curvilinear_probe_reshaped_data_type.cu', '-lcufft', 'NVCC_FLAGS=-Xptxas -dlcm=ca')
-mexcuda('ADMIRE_GPU_curvilinear_probe_verasonics_RF_buffer_data_type.cu', '-lcufft', 'NVCC_FLAGS=-Xptxas -dlcm=ca')
+mexcuda('ADMIRE_GPU_curvilinear_probe_Verasonics_RF_buffer_data_type.cu', '-lcufft', 'NVCC_FLAGS=-Xptxas -dlcm=ca')
 mexcuda('ADMIRE_GPU_linear_probe_reshaped_data_type.cu', '-lcufft', 'NVCC_FLAGS=-Xptxas -dlcm=ca')
 mexcuda('ADMIRE_GPU_linear_probe_Verasonics_RF_buffer_data_type.cu', '-lcufft', 'NVCC_FLAGS=-Xptxas -dlcm=ca')
 ```
@@ -72,7 +72,7 @@ mexcuda('ADMIRE_GPU_linear_probe_Verasonics_RF_buffer_data_type.cu', '-lcufft', 
 
 ```Matlab
 mexcuda('ADMIRE_GPU_curvilinear_probe_reshaped_data_type.cu', '-L/usr/local/cuda-10.0/lib64', '-lcufft', 'NVCC_FLAGS=-Xptxas -dlcm=ca')
-mexcuda('ADMIRE_GPU_curvilinear_probe_verasonics_RF_buffer_data_type.cu', '-L/usr/local/cuda-10.0/lib64', '-lcufft', 'NVCC_FLAGS=-Xptxas -dlcm=ca')
+mexcuda('ADMIRE_GPU_curvilinear_probe_Verasonics_RF_buffer_data_type.cu', '-L/usr/local/cuda-10.0/lib64', '-lcufft', 'NVCC_FLAGS=-Xptxas -dlcm=ca')
 mexcuda('ADMIRE_GPU_linear_probe_reshaped_data_type.cu', '-L/usr/local/cuda-10.0/lib64', '-lcufft', 'NVCC_FLAGS=-Xptxas -dlcm=ca')
 mexcuda('ADMIRE_GPU_linear_probe_Verasonics_RF_buffer_data_type.cu', '-L/usr/local/cuda-10.0/lib64', '-lcufft', 'NVCC_FLAGS=-Xptxas -dlcm=ca')
 ```
