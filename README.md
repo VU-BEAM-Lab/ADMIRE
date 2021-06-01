@@ -372,6 +372,14 @@ This is free software made available under the Apache License, Version 2.0. For 
 Please include the following citations to cite this repository in publications.
 
 ```
+@article{khan2021real,
+  title={A Real-Time, GPU-Based Implementation of Aperture Domain Model Image REconstruction},
+  author={Khan, Christopher and Dei, Kazuyuki and Schlunk, Siegfried and Ozgun, Kathryn and Byram, Brett},
+  journal={IEEE Transactions on Ultrasonics, Ferroelectrics, and Frequency Control},
+  year={2021},
+  publisher={IEEE}
+}
+
 @article{dei_schlunk_byram_2019, 
 	title={Computationally Efficient Implementation of Aperture Domain Model Image Reconstruction}, 
 	volume={66}, 
@@ -418,7 +426,6 @@ Please include the following citations to cite this repository in publications.
   	bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 ```
-Please also cite the paper "A Real-Time, GPU-Based Implementation of Aperture Domain Model Image REconstruction", which is currently in press and can be found at https://ieeexplore.ieee.org/document/9344672.
 
 ## Contact Information
 If you have questions, suggestions, or bugs to report, please use the Issues section of this repository or contact Christopher Khan (christopher.m.khan@vanderbilt.edu).
