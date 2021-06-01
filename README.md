@@ -373,11 +373,13 @@ Please include the following citations to cite this repository in publications.
 
 ```
 @article{khan2021real,
-  title={A Real-Time, GPU-Based Implementation of Aperture Domain Model Image REconstruction},
-  author={Khan, Christopher and Dei, Kazuyuki and Schlunk, Siegfried and Ozgun, Kathryn and Byram, Brett},
-  journal={IEEE Transactions on Ultrasonics, Ferroelectrics, and Frequency Control},
-  year={2021},
-  publisher={IEEE}
+        title={A Real-Time, GPU-Based Implementation of Aperture Domain Model Image REconstruction},
+	volume={68},
+	DOI={10.1109/TUFFC.2021.3056334},
+        author={Khan, Christopher and Dei, Kazuyuki and Schlunk, Siegfried and Ozgun, Kathryn and Byram, Brett},
+        journal={IEEE Transactions on Ultrasonics, Ferroelectrics, and Frequency Control},
+        year={2021},
+        publisher={IEEE}
 }
 
 @article{dei_schlunk_byram_2019, 
