@@ -380,7 +380,7 @@ Please include the following citations to cite this repository in publications.
         author={{Khan}, C. and {Dei}, K. and {Schlunk}, S. and {Ozgun}, K. and {Byram}, B.},
         journal={IEEE Transactions on Ultrasonics, Ferroelectrics, and Frequency Control},
         year={2021},
-        publisher={IEEE}
+	pages={2101-2116}
 }
 
 @article{dei_schlunk_byram_2019, 
