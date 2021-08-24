@@ -429,15 +429,6 @@ Please include the following citations to cite this repository in publications.
   	biburl    = {https://dblp.org/rec/journals/corr/Shlens14d.bib},
   	bibsource = {dblp computer science bibliography, https://dblp.org}
 }
-
-@inproceedings{cardoso1989source,
-  	title={Source separation using higher order moments},
-  	author={Cardoso, J-F},
-  	booktitle={International Conference on Acoustics, Speech, and Signal Processing,},
-  	pages={2109--2112},
-  	year={1989},
-  	organization={IEEE}
-}
 ```
 
 ## Contact Information
