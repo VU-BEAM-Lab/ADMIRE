@@ -384,16 +384,16 @@ Please include the following citations to cite this repository in publications.
 }
 
 @article{Khan2020,
-  doi = {10.21105/joss.02644},
-  url = {https://doi.org/10.21105/joss.02644},
-  year = {2020},
-  publisher = {The Open Journal},
-  volume = {5},
-  number = {54},
-  pages = {2644},
-  author = {Christopher Khan and Brett Byram},
-  title = {GENRE (GPU Elastic-Net REgression): A CUDA-Accelerated Package for Massively Parallel Linear Regression with Elastic-Net Regularization},
-  journal = {Journal of Open Source Software}
+  	doi = {10.21105/joss.02644},
+  	url = {https://doi.org/10.21105/joss.02644},
+  	year = {2020},
+  	publisher = {The Open Journal},
+  	volume = {5},
+  	number = {54},
+  	pages = {2644},
+  	author = {Christopher Khan and Brett Byram},
+  	title = {GENRE (GPU Elastic-Net REgression): A CUDA-Accelerated Package for Massively Parallel Linear Regression with Elastic-Net Regularization},
+  	journal = {Journal of Open Source Software}
 }
 
 @article{dei_schlunk_byram_2019, 
