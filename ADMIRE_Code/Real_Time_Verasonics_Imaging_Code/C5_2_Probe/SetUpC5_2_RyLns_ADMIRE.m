@@ -232,7 +232,7 @@ VSX
 return
 
 % **** Callback routines to be converted by text2cell function. ****
-%TxFocusCallback - TX focus changel
+%TxFocusCallback - TX focus change
 simMode = evalin('base','Resource.Parameters.simulateMode');
 % No focus change if in simulate mode 2.
 if simMode == 2
